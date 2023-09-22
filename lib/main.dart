@@ -3,7 +3,9 @@ import 'package:asd/components/sheet.dart';
 import 'package:asd/models/myData.dart';
 import 'package:asd/components/diagnosis_form.dart';
 import 'package:asd/screens/home.dart';
-import 'package:asd/screens/login.dart';
+// import 'package:asd/screens/login.dart';
+import 'package:asd/services/authmiddle.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:asd/services/server.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -14,7 +16,14 @@ import 'package:r_nav_n_sheet/r_nav_n_sheet.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(ChangeNotifierProvider(
     create: (context) => MyData(),
     child: const MyApp(),
@@ -63,7 +72,7 @@ class _MyAppState extends State<MyApp> {
         //     .apply(fontFamily: GoogleFonts.poppins().fontFamily),
       ),
       themeMode: _themeMode,
-      home: LoginPage(),
+      home: AuthCheck(),
     );
   }
 }
@@ -77,15 +86,15 @@ class _MyAppState extends State<MyApp> {
 //       )
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({
+  MyHomePage({
     super.key,
-    required this.title,
-    required this.handleBrightnessChange,
-    required this.useLightMode,
+    this.title,
+    this.handleBrightnessChange,
+    this.useLightMode,
   });
-  final String title;
-  final bool useLightMode;
-  final void Function(bool useLightMode) handleBrightnessChange;
+  final String? title;
+  final bool? useLightMode;
+  final void Function(bool useLightMode)? handleBrightnessChange;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -105,20 +114,39 @@ class _MyHomePageState extends State<MyHomePage> {
 
   var currentIndex = 0;
 
+  Future signOut() async {
+    await FirebaseAuth.instance.signOut();
+    // debugPrint('SignOut');
+  }
+
   @override
   Widget build(BuildContext context) {
     // var theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.title,
+          'ASDx',
           style: GoogleFonts.montserrat(),
         ),
-        actions: <Widget>[
-          _BrightnessButton(
-            handleBrightnessChange: widget.handleBrightnessChange,
+        actions: [
+          GestureDetector(
+            onTap: () {
+              signOut();
+            },
+            child: Container(
+              padding: EdgeInsets.only(right: 20),
+              child: Icon(
+                Remix.logout_box_line,
+              ),
+            ),
           ),
         ],
+
+        // actions: <Widget>[
+        //   _BrightnessButton(
+        //     handleBrightnessChange: widget.handleBrightnessChange,
+        //   ),
+        // ],
       ),
       body: screens[currentIndex],
       bottomNavigationBar: RNavNSheet(

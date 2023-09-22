@@ -1,10 +1,14 @@
 import 'package:asd/components/button.dart';
-import 'package:asd/const/color.dart';
-import 'package:asd/main.dart';
+// import 'package:asd/const/color.dart';
+// import 'package:asd/main.dart';
 import 'package:asd/screens/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+// import 'package:flutter/scheduler.dart';
+// import 'package:flutter_animate/flutter_animate.dart';
+import 'package:asd/components/snackBars.dart';
+
+import '../components/input.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -14,18 +18,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  ThemeMode _themeMode = ThemeMode.light;
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
 
-  bool get useLightMode {
-    switch (_themeMode) {
-      case ThemeMode.system:
-        return SchedulerBinding.instance.window.platformBrightness ==
-            Brightness.light;
-      case ThemeMode.light:
-        return true;
-      case ThemeMode.dark:
-        return false;
-    }
+  Future sinIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: email.text.trim(),
+      password: password.text.trim(),
+    );
   }
 
   @override
@@ -59,38 +59,20 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     height: 50,
                   ),
-                  Container(
-                    padding: EdgeInsets.only(left: 20),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.grey[200],
-                    ),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        enabledBorder: InputBorder.none,
-                        hintText: 'Email',
-                        focusedBorder: InputBorder.none,
-                      ),
-                      keyboardType: TextInputType.emailAddress,
-                    ),
+                  InputTextField(
+                    obscureText: false,
+                    hintText: 'Email',
+                    controller: email,
+                    keyboardType: TextInputType.emailAddress,
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
-                  Container(
-                    padding: EdgeInsets.only(left: 20),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.grey[200],
-                    ),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        enabledBorder: InputBorder.none,
-                        hintText: 'Password',
-                        focusedBorder: InputBorder.none,
-                      ),
-                      keyboardType: TextInputType.visiblePassword,
-                    ),
+                  InputTextField(
+                    obscureText: true,
+                    hintText: 'Password',
+                    controller: password,
+                    keyboardType: TextInputType.visiblePassword,
                   ),
                   SizedBox(
                     height: 10,
@@ -108,19 +90,10 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   GestureDetector(
                     onTap: () => {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MyHomePage(
-                                    title: 'AutiScope',
-                                    useLightMode: useLightMode,
-                                    handleBrightnessChange: (useLightMode) =>
-                                        setState(() {
-                                      _themeMode = useLightMode
-                                          ? ThemeMode.light
-                                          : ThemeMode.dark;
-                                    }),
-                                  )))
+                      (email.text.trim() != "" && password.text.trim() != "")
+                          ? sinIn()
+                          : ErrorSnackBar(
+                              context, 'Please fill all the fields!')
                     },
                     child: FullButton(
                       buttonText: 'Login',

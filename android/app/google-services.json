@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "155290127830",
+    "project_id": "asd-ml",
+    "storage_bucket": "asd-ml.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155290127830:android:ff25f770d426c567ab2877",
+        "android_client_info": {
+          "package_name": "com.example.asd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkhyT8FH7HDsK-CgEIHfK8AJPD7onu-zc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

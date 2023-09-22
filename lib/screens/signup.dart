@@ -1,11 +1,13 @@
 import 'package:asd/components/button.dart';
 import 'package:asd/components/input.dart';
 import 'package:asd/const/color.dart';
-import 'package:asd/main.dart';
+// import 'package:asd/const/color.dart';
+// import 'package:asd/main.dart';
 import 'package:asd/screens/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+// import 'package:flutter/scheduler.dart';
+// import 'package:flutter_animate/flutter_animate.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -15,28 +17,40 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  ThemeMode _themeMode = ThemeMode.light;
-
-  bool get useLightMode {
-    switch (_themeMode) {
-      case ThemeMode.system:
-        return SchedulerBinding.instance.window.platformBrightness ==
-            Brightness.light;
-      case ThemeMode.light:
-        return true;
-      case ThemeMode.dark:
-        return false;
-    }
-  }
-
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-  TextEditingController name = TextEditingController();
+  TextEditingController guardian = TextEditingController();
+  TextEditingController displayName = TextEditingController();
   TextEditingController relationWith = TextEditingController();
   TextEditingController childAge = TextEditingController();
   TextEditingController childGrade = TextEditingController();
 
   bool checkVal = false;
+
+  Future signUp(context) async {
+    try {
+      var res = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email.text.trim(),
+        password: password.text.trim(),
+      );
+    } on FirebaseAuthException catch (error) {
+      debugPrint(error.toString());
+      ErrorSnackBar(context, error.toString());
+    }
+    // debugPrint(res.toString());
+  }
+
+  void ErrorSnackBar(context, text) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(
+        text,
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      backgroundColor: colorRed,
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +85,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 30,
                   ),
                   InputTextField(
+                    obscureText: false,
                     hintText: 'Email',
                     controller: email,
                     keyboardType: TextInputType.emailAddress,
@@ -79,6 +94,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 10,
                   ),
                   InputTextField(
+                    obscureText: true,
                     hintText: 'Password',
                     controller: password,
                     keyboardType: TextInputType.visiblePassword,
@@ -87,14 +103,25 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 10,
                   ),
                   InputTextField(
-                    hintText: 'Account Owner Name',
-                    controller: name,
+                    obscureText: false,
+                    hintText: 'Child Name(This name will be displayed.)',
+                    controller: displayName,
                     keyboardType: TextInputType.text,
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   InputTextField(
+                    obscureText: false,
+                    hintText: 'Guardian name',
+                    controller: guardian,
+                    keyboardType: TextInputType.text,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  InputTextField(
+                    obscureText: false,
                     hintText: 'Relation with child?',
                     controller: relationWith,
                     keyboardType: TextInputType.text,
@@ -103,6 +130,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 10,
                   ),
                   InputTextField(
+                    obscureText: false,
                     hintText: 'Child age',
                     controller: childAge,
                     keyboardType: TextInputType.number,
@@ -111,6 +139,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 10,
                   ),
                   InputTextField(
+                    obscureText: false,
                     hintText: 'Child grade',
                     controller: childGrade,
                     keyboardType: TextInputType.number,
@@ -136,21 +165,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   checkVal
                       ? GestureDetector(
-                          onTap: () => {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MyHomePage(
-                                          title: 'AutiScope',
-                                          useLightMode: useLightMode,
-                                          handleBrightnessChange:
-                                              (useLightMode) => setState(() {
-                                            _themeMode = useLightMode
-                                                ? ThemeMode.light
-                                                : ThemeMode.dark;
-                                          }),
-                                        )))
-                          },
+                          onTap: () => {signUp(context)},
                           child: FullButton(
                             buttonText: 'Sign Up',
                             buttonColor: Color.fromARGB(255, 221, 56, 56),
