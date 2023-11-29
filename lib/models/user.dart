@@ -23,7 +23,6 @@ class User {
 class UserClass {
   String uid;
   String email;
-  String password;
   String guardianName;
   String relationWith;
   String childAge;
@@ -31,11 +30,14 @@ class UserClass {
   String photoUrl;
   String displayName;
   String phoneNumber;
+  String height;
+  String weight;
+  String gender;
+  bool info;
 
   UserClass({
     required this.uid,
     required this.email,
-    required this.password,
     required this.guardianName,
     required this.relationWith,
     required this.childAge,
@@ -43,12 +45,15 @@ class UserClass {
     required this.photoUrl,
     required this.displayName,
     required this.phoneNumber,
+    required this.height,
+    required this.weight,
+    required this.gender,
+    required this.info,
   });
 
   factory UserClass.fromJson(Map<String, dynamic> json) => UserClass(
         uid: json["uid"],
         email: json["email"],
-        password: json["password"],
         guardianName: json["guardianName"],
         relationWith: json["relationWith"],
         childAge: json["childAge"],
@@ -56,12 +61,15 @@ class UserClass {
         photoUrl: json["photoURL"],
         displayName: json["displayName"],
         phoneNumber: json["phoneNumber"],
+        height: json["height"],
+        weight: json["weight"],
+        gender: json["gender"],
+        info: json["info"],
       );
 
   Map<String, dynamic> toJson() => {
         "uid": uid,
         "email": email,
-        "password": password,
         "guardianName": guardianName,
         "relationWith": relationWith,
         "childAge": childAge,
@@ -69,5 +77,9 @@ class UserClass {
         "photoURL": photoUrl,
         "displayName": displayName,
         "phoneNumber": phoneNumber,
+        "height": height,
+        "weight": weight,
+        "gender": gender,
+        "info": info
       };
 }

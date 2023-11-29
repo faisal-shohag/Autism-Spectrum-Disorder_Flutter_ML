@@ -1,12 +1,13 @@
-import 'package:asd/models/info.dart';
+import 'package:asd/components/button.dart';
+import 'package:asd/components/snackBars.dart';
+import 'package:asd/const/color.dart';
+// import 'package:asd/models/info.dart';
 import 'package:asd/models/myData.dart';
 import 'package:asd/services/server.dart';
-// import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:remixicon/remixicon.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+// import 'package:flutter_animate/flutter_animate.dart';
 import 'package:intl/intl.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 // import 'dart:io';
@@ -38,160 +39,126 @@ String response = "";
 TextEditingController dateinput = TextEditingController();
 
 class _DiagnosisFormState extends State<DiagnosisForm> {
-  final List<Widget> forms = [
-    const InfoForm(),
-    const FileUploadForm(),
-    const PredictScreen()
-  ];
-  int curr = 0;
-
-  final List<Widget> head = [
-    const Text(
-      'Child Information',
-      style: TextStyle(
-          color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
-    ),
-    const Text(
-      'Upload Video',
-      style: TextStyle(
-          color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
-    ),
-    const Text(
-      'Result',
-      style: TextStyle(
-          color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),
-    ),
-  ];
+  String text = "";
+  bool isClickPredict = false;
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     pickedFile = null;
     response = "";
+    text = "";
+    isClickPredict = false;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Diagnosis Steps')),
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
+      appBar: AppBar(
+        title: const Text(
+          'Image Diagnosis',
+          style: TextStyle(fontWeight: FontWeight.w700),
+        ),
+      ),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Center(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20.0)),
-                          border: Border.all(color: Colors.green, width: 2.0),
-                          gradient: const LinearGradient(
-                            colors: [
-                              Color.fromARGB(255, 37, 143, 55),
-                              Color.fromARGB(255, 54, 244, 117)
-                            ],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Color.fromARGB(255, 48, 145, 69),
-                              blurRadius: 12.0,
-                              offset: Offset(0, 6),
-                            )
-                          ]),
-                      // padding: const EdgeInsets.all(15.0),
-                      width: double.infinity,
-                      height: 50.0,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(55, 10, 0, 0),
-                        child: head[curr],
-                      ),
-                    ),
-                    Positioned(
-                      top: 5,
-                      left: 15,
-                      child: Container(
-                        height: 35,
-                        width: 35,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(100),
-                            border: Border.all(
-                              color: Colors.green,
-                              width: 2.0,
-                            )),
-                        child: Center(
-                          child: Text(
-                            (curr + 1).toString(),
-                            style: const TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                )
-                    .animate()
-                    .fadeIn(duration: 500.ms)
-                    .slideX(duration: 500.ms)
-                    .shimmer(duration: 1800.ms),
-                Container(
-                  child: forms[curr],
+                Image.asset(
+                  'assets/images/upload.png',
+                  height: 150.0,
+                ),
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
+                  onPressed: () async {
+                    var file = await BaseClient().getFile();
+                    if (file != null) {
+                      setState(() {
+                        pickedFile = file["file"];
+                        text = file["name"];
+                        response = "";
+                      });
+                    } else {
+                      ErrorSnackBar(context, 'Image was not selected!');
+                    }
+                  },
+                  icon: const Icon(
+                    Remix.image_add_fill,
+                    color: Colors.white,
+                  ),
+                  label: const Text(
+                    'Pick an Image',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
                 const SizedBox(
-                  height: 50.0,
+                  height: 10,
                 ),
-                if (curr != forms.length - 1)
-                  ElevatedButton.icon(
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                    onPressed: () async {
-                      setState(() {
-                        if (curr != forms.length - 1) {
-                          curr++;
-                        }
-                      });
-
-                      if (curr == forms.length - 1) {
-                        debugPrint('Predict');
-                        var info = Info(
-                            name: name,
-                            dob: dateOfBirth,
-                            aoa: ageAtAssesment,
-                            gender: gender,
-                            school: school,
-                            grade: grade,
-                            home: home,
-                            parents: Parents(father: father, mother: mother),
-                            parentsEmail: parentsEmail,
-                            currentConcerns: concerns);
-                        response = await BaseClient().upload(pickedFile, info);
-                        Provider.of<MyData>(context, listen: false)
-                            .updateGVal(response);
-                      }
-                    },
-                    icon: const Icon(
-                      Remix.arrow_right_s_line,
-                      color: Colors.white,
-                    ),
-                    label: const Text(
-                      'Next',
-                      style: TextStyle(color: Colors.white),
-                    ),
+                if (pickedFile != null)
+                  Image.file(
+                    pickedFile,
+                    height: 100,
                   ),
                 const SizedBox(
-                  height: 50.0,
+                  height: 10,
                 ),
+                if (text != "")
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Remix.image_fill),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(text)
+                    ],
+                  ),
+                SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    debugPrint('Predict');
+
+                    if (pickedFile == null) {
+                      ErrorSnackBar(context, 'Please Pick an Image First!');
+                    } else {
+                      setState(() {
+                        isClickPredict = true;
+                      });
+                      response = await BaseClient().upload(pickedFile);
+                      Provider.of<MyData>(context, listen: false)
+                          .updateGVal(response);
+
+                      setState(() {
+                        isClickPredict = false;
+                      });
+                    }
+                  },
+                  child: FlexButton(
+                    buttonText: 'Predict',
+                    buttonColor: color2.withOpacity(1),
+                    width: 100,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                if (isClickPredict) CircularProgressIndicator(),
+                if (response != "")
+                  Consumer<MyData>(
+                    builder: (context, myData, child) =>
+                        Text('Result: ${myData.response}'),
+                  ),
               ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 
@@ -464,11 +431,11 @@ class _FileUploadFormState extends State<FileUploadForm> {
             });
           },
           icon: const Icon(
-            Remix.video_add_fill,
+            Remix.image_add_fill,
             color: Colors.white,
           ),
           label: const Text(
-            'Pick Video',
+            'Pick an Image',
             style: TextStyle(color: Colors.white),
           ),
         ),

@@ -1,13 +1,12 @@
 import 'package:asd/components/button.dart';
-// import 'package:asd/const/color.dart';
-// import 'package:asd/main.dart';
+import 'package:asd/const/RegEx.dart';
+import 'package:asd/const/color.dart';
+import 'package:asd/screens/password_reset.dart';
 import 'package:asd/screens/signup.dart';
+import 'package:asd/services/authmiddle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter/scheduler.dart';
-// import 'package:flutter_animate/flutter_animate.dart';
 import 'package:asd/components/snackBars.dart';
-
 import '../components/input.dart';
 
 class LoginPage extends StatefulWidget {
@@ -22,10 +21,27 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController password = TextEditingController();
 
   Future sinIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: email.text.trim(),
-      password: password.text.trim(),
-    );
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email.text.trim(),
+        password: password.text.trim(),
+      );
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => AuthCheck()));
+    } on FirebaseAuthException catch (error) {
+      ErrorSnackBar(context, error.message);
+      setState(() {
+        isClickLogin = false;
+      });
+    }
+  }
+
+  bool isClickLogin = false;
+
+  @override
+  void dispose() {
+    isClickLogin = false;
+    super.dispose();
   }
 
   @override
@@ -59,7 +75,14 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     height: 50,
                   ),
+                  isClickLogin ? CircularProgressIndicator() : Text(''),
+                  isClickLogin
+                      ? SizedBox(
+                          height: 20,
+                        )
+                      : Text(''),
                   InputTextField(
+                    readOnly: false,
                     obscureText: false,
                     hintText: 'Email',
                     controller: email,
@@ -69,6 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                     height: 10,
                   ),
                   InputTextField(
+                    readOnly: false,
                     obscureText: true,
                     hintText: 'Password',
                     controller: password,
@@ -77,23 +101,47 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    padding: EdgeInsets.only(right: 10.0),
-                    width: MediaQuery.of(context).size.width,
-                    child: Text(
-                      'Forget password?',
-                      textAlign: TextAlign.right,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'Forget password?',
+                        // textAlign: TextAlign.right,
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ResetPassword()));
+                        },
+                        child: Text(
+                          'Reset password',
+                          style: TextStyle(
+                              color: color1, fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
                   ),
                   SizedBox(
                     height: 15,
                   ),
                   GestureDetector(
-                    onTap: () => {
-                      (email.text.trim() != "" && password.text.trim() != "")
-                          ? sinIn()
-                          : ErrorSnackBar(
-                              context, 'Please fill all the fields!')
+                    onTap: () {
+                      if (password.text.length < 6) {
+                        WarningSnackBar(
+                            context, 'Password must be atleast 6 digits.');
+                      } else if (emailRegx.hasMatch(email.text)) {
+                        setState(() {
+                          isClickLogin = true;
+                        });
+                        sinIn();
+                      } else {
+                        WarningSnackBar(context, 'Invalid Email Address!');
+                      }
                     },
                     child: FullButton(
                       buttonText: 'Login',
@@ -114,7 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   GestureDetector(
                     onTap: () => {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const SignUpPage()))

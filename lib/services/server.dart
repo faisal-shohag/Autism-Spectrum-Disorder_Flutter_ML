@@ -1,4 +1,4 @@
-import 'dart:convert';
+// import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,7 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 
 class BaseClient {
-  String baseUrl = "http://192.168.140.108:5000/";
+  String baseUrl = "http://7bc8-34-125-233-67.ngrok-free.app/";
 
   final dio = Dio();
 
@@ -23,9 +23,9 @@ class BaseClient {
     }
   }
 
-  Future upload(File file, dynamic info) async {
+  Future upload(File file) async {
     String fileName = file.path.split('/').last;
-    var infoJson = json.encode(info);
+    // var infoJson = json.encode(info);
     // var qJson = json.encode(questions);
 
     FormData data = FormData.fromMap({
@@ -33,7 +33,7 @@ class BaseClient {
         file.path,
         filename: fileName,
       ),
-      "info": infoJson,
+      // "info": infoJson,
       // "questions": qJson
     });
     // debugPrint(fileName);
@@ -43,9 +43,9 @@ class BaseClient {
     await dio
         .post("${baseUrl}upload", data: data)
         .then((res) => {response = res.toString()})
-        .catchError((error) => {response = "Error!"});
+        .catchError((error) => {response = error.toString()});
 
-    // debugPrint('res: $response');
+    debugPrint('res: $response');
 
     return response;
   }

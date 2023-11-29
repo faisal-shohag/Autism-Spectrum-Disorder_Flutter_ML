@@ -12,3 +12,27 @@ void ErrorSnackBar(context, text) {
     backgroundColor: colorRed,
   ));
 }
+
+void WarningSnackBar(context, text) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(
+      text,
+      style: TextStyle(
+        color: Colors.white,
+      ),
+    ),
+    backgroundColor: Colors.orange,
+  ));
+}
+
+void SuccessSnackBar(context, text) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(
+      text,
+      style: TextStyle(
+        color: Colors.white,
+      ),
+    ),
+    backgroundColor: Colors.green,
+  ));
+}

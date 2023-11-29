@@ -59,14 +59,14 @@ class ShadowItemCard extends StatelessWidget {
                 title.toString(),
                 style: TextStyle(
                   fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                  fontFamily: 'geb',
                 ),
               ),
               SizedBox(
                 height: 2,
               ),
               Container(
-                width: MediaQuery.of(context).size.width / 2.5,
+                width: MediaQuery.of(context).size.width / 2,
                 child: Text(
                   subTitle.toString(),
                   overflow: TextOverflow.ellipsis,

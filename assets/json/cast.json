@@ -1,0 +1,548 @@
+[
+    {
+        "q": "Does s/he join in playing games with other children easily?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 1
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he come up to you spontaneously for a chat?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 1
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Was s/he speaking by 2 years old?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he enjoy sports?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Is it important to him/her to fit in with the peer group?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 1
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he appear to notice unusual details that others miss?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 1
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he tend to take things literally?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 1
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "When s/he was 3 years old, did s/he spend a lot of time pretending (e.g., play-acting being a superhero, or holding teddy's tea parties)?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 1
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he like to do things over and over again, in the same way all the time?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 1
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he find it easy to interact with other children?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 1
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Can s/he keep a two-way conversation going?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 1
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Can s/he read appropriately for his/her age?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he mostly have the same interests as his/her peers?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 1
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he have an interest which takes up so much time that s/he does little else?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 1
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he have friends, rather than just acquaintances?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 1
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he often bring you things s/he is interested in to show you?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 1
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he enjoy joking around?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 1
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he have difficulty understanding the rules for polite behavior?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 1
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he appear to have an unusual memory for details?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 1
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Is his/her voice unusual (e.g., overly adult, flat, or very monotonous)?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 1
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Are people important to him/her?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 1
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Can s/he dress him/herself?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Is s/he good at turn-taking in conversation?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 1
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he play imaginatively with other children, and engage in role-play?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 1
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he often do or say things that are tactless or socially inappropriate?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 1
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Can s/he count to 50 without leaving out any numbers?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he make normal eye-contact?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 1
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he have any unusual and repetitive movements?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 1
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Is his/her social behavior very one-sided and always on his/her own terms?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 1
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he sometimes say “you” or “s/he” when s/he means “I”?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 1
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he prefer imaginative activities such as play-acting or story-telling, rather than numbers or lists of facts?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 1
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he sometimes lose the listener because of not explaining what s/he is talking about?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 1
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Can s/he ride a bicycle (even if with stabilizers)?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he try to impose routines on him/herself, or on others, in such a way that it causes problems?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 1
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he care how s/he is perceived by the rest of the group?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 1
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he often turn conversations to his/her favorite subject rather than following what the other person wants to talk about?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 1
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Does s/he have odd or unusual phrases?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 1
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Have teachers/health visitors ever expressed any concerns about his/her development?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    },
+    {
+        "q": "Has s/he ever been diagnosed with any of the following: Language delay, ADHD, hearing or visual difficulties, Autism Spectrum Condition (including Asperger’s Syndrome), or a physical disability?",
+        "options": [
+            {
+                "title": "Yes",
+                "value": 0
+            },
+            {
+                "title": "No",
+                "value": 0
+            }
+        ],
+        "example": ""
+    }
+]

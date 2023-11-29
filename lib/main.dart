@@ -1,33 +1,37 @@
-import 'package:asd/components/sheet.dart';
-// import 'package:asd/models/info.dart';
+import 'package:asd/const/color.dart';
 import 'package:asd/models/myData.dart';
-import 'package:asd/components/diagnosis_form.dart';
+import 'package:asd/screens/asd_test.dart';
 import 'package:asd/screens/home.dart';
-// import 'package:asd/screens/login.dart';
+import 'package:asd/screens/notificationScreen.dart';
+import 'package:asd/screens/profile.dart';
+import 'package:asd/screens/reports.dart';
 import 'package:asd/services/authmiddle.dart';
+import 'package:asd/services/notification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:asd/services/server.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:r_nav_n_sheet/r_nav_n_sheet.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(ChangeNotifierProvider(
-    create: (context) => MyData(),
-    child: const MyApp(),
-  ));
+  await FireNotification().initNotifications();
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => CounterNotifier()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -57,10 +61,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Demo',
+      title: 'ASD',
       theme: ThemeData(
         useMaterial3: true,
-        fontFamily: GoogleFonts.poppins().fontFamily,
+        fontFamily: 'Gilroy',
         brightness: Brightness.light,
       ),
       darkTheme: ThemeData(
@@ -73,17 +77,12 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: _themeMode,
       home: AuthCheck(),
+      routes: {
+        '/notifications': (context) => const NotificationScreen(),
+      },
     );
   }
 }
-
-// MyHomePage(
-//         title: 'AutiScope',
-//         useLightMode: useLightMode,
-//         handleBrightnessChange: (useLightMode) => setState(() {
-//           _themeMode = useLightMode ? ThemeMode.light : ThemeMode.dark;
-//         }),
-//       )
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({
@@ -103,14 +102,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final List<Widget> screens = [
     HomeTab(),
-    Diagnosis(),
-    Center(
-      child: Text('Reports'),
-    ),
-    Center(
-      child: Text('Account'),
-    ),
+    ASDTEST(),
+    Profile(),
+    Reports(),
   ];
+
+  final List<String> titles = ["Home", "Test", "Reports", "Profile"];
 
   var currentIndex = 0;
 
@@ -119,161 +116,110 @@ class _MyHomePageState extends State<MyHomePage> {
     // debugPrint('SignOut');
   }
 
+  final userId = FirebaseAuth.instance.currentUser!.uid;
+
   @override
   Widget build(BuildContext context) {
-    // var theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'ASDx',
-          style: GoogleFonts.montserrat(),
-        ),
-        actions: [
-          GestureDetector(
-            onTap: () {
-              signOut();
-            },
-            child: Container(
-              padding: EdgeInsets.only(right: 20),
-              child: Icon(
-                Remix.logout_box_line,
-              ),
-            ),
-          ),
-        ],
-
-        // actions: <Widget>[
-        //   _BrightnessButton(
-        //     handleBrightnessChange: widget.handleBrightnessChange,
-        //   ),
-        // ],
-      ),
-      body: screens[currentIndex],
-      bottomNavigationBar: RNavNSheet(
-        onTap: (index) => {
-          setState(() {
-            currentIndex = index;
-          })
-        },
-        sheet: Sheet(),
-
-        // selectedItemColor: Color.fromARGB(255, 4, 4, 5),
-        sheetOpenIcon: Remix.apps_line,
-        sheetCloseIcon: Remix.add_line,
-        sheetCloseIconBoxColor: Color.fromARGB(255, 69, 35, 190),
-        sheetCloseIconColor: Colors.white,
-        sheetOpenIconColor: Colors.white,
-        sheetOpenIconBoxColor: Color.fromARGB(255, 76, 23, 201),
-        selectedItemGradient: LinearGradient(
-          colors: [
-            Color.fromARGB(255, 45, 13, 187).withOpacity(0.8),
-            Color.fromARGB(255, 131, 103, 231).withOpacity(0.9),
-          ],
-        ),
-        initialSelectedIndex: currentIndex,
-        items: const [
-          RNavItem(
-            icon: Remix.home_2_line,
-            label: 'Home',
-            activeIcon: Remix.home_2_fill,
-          ),
-          RNavItem(
-            icon: Remix.pulse_line,
-            label: 'Diagnosis',
-            activeIcon: Remix.pulse_fill,
-          ),
-          RNavItem(
-            icon: Remix.pie_chart_2_line,
-            label: 'Report',
-            activeIcon: Remix.pie_chart_2_fill,
-          ),
-          RNavItem(
-            icon: Remix.user_6_line,
-            label: 'Account',
-            activeIcon: Remix.user_6_fill,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class Diagnosis extends StatelessWidget {
-  const Diagnosis({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
+      body: SingleChildScrollView(
         child: Column(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'ASD Diagnosis',
-              style: TextStyle(
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold,
+            Container(
+              height: 40,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color.fromARGB(255, 187, 13, 80).withOpacity(0.8),
+                    Color.fromARGB(255, 182, 26, 174).withOpacity(0.9),
+                  ],
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.centerRight,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(10, 10),
+                    blurRadius: 20,
+                    color: Color.fromARGB(255, 131, 103, 231).withOpacity(0.5),
+                  ),
+                ],
               ),
             ),
-            const Text(
-              'Diagnose with our well trained ML model and get instant result within few minutes. Follow simple 3 steps to get Result.',
-              style: TextStyle(
-                fontSize: 14.0,
-                // fontWeight: FontWeight.bold,
-              ),
+            SizedBox(
+              height: 20,
             ),
-            Image.asset(
-              'assets/images/diag_1.jpeg',
-              height: 400.0,
-            ),
-            ElevatedButton.icon(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const DiagnosisForm()));
-              },
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green, elevation: 0),
-              icon: const Icon(
-                Remix.pulse_fill,
-                color: Colors.white,
-              ),
-              label: const Text(
-                'Start Diagnosis',
-                style: TextStyle(color: Colors.white),
-              ),
-            ).animate().fadeIn(duration: 500.ms).shimmer(duration: 2000.ms),
+            // Text(
+            //   titles[currentIndex],
+            //   style: TextStyle(
+            //     fontFamily: 'geb',
+            //     fontSize: 20,
+            //     color: Color.fromARGB(228, 39, 38, 38),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 10,
+            // ),
+            screens[currentIndex],
           ],
         ),
       ),
-    );
-  }
-}
-
-class _BrightnessButton extends StatelessWidget {
-  const _BrightnessButton({
-    required this.handleBrightnessChange,
-    this.showTooltipBelow = true,
-  });
-
-  final Function handleBrightnessChange;
-  final bool showTooltipBelow;
-
-  @override
-  Widget build(BuildContext context) {
-    final isBright = Theme.of(context).brightness == Brightness.light;
-    return Tooltip(
-      preferBelow: showTooltipBelow,
-      message: 'Toggle brightness',
-      child: IconButton(
-        icon: isBright
-            ? const Icon(Icons.dark_mode_outlined)
-            : const Icon(Icons.light_mode_outlined),
-        onPressed: () => handleBrightnessChange(!isBright),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+            // color: color1.withOpacity(0.4),
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(3, -2),
+                color: color1.withOpacity(0.2),
+                blurRadius: 10.0,
+              )
+            ]),
+        child: Material(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          child: BottomNavigationBar(
+            onTap: (index) {
+              setState(() {
+                currentIndex = index;
+              });
+            },
+            backgroundColor: Colors.transparent,
+            selectedLabelStyle: TextStyle(fontFamily: 'geb'),
+            currentIndex: currentIndex,
+            selectedItemColor: Colors.black,
+            elevation: 0,
+            unselectedItemColor: Colors.black54,
+            type: BottomNavigationBarType.fixed,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Remix.home_2_line),
+                label: 'Home',
+                activeIcon: Icon(Remix.home_2_fill),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Remix.pulse_line),
+                label: 'Test',
+                activeIcon: Icon(Remix.pulse_fill),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Remix.user_6_line),
+                label: 'Profile',
+                activeIcon: Icon(Remix.pie_chart_2_fill),
+              ),
+              // BottomNavigationBarItem(
+              //   icon: Icon(Remix.user_6_line),
+              //   label: '...',
+              //   activeIcon: Icon(Remix.user_6_fill),
+              // ),
+            ],
+          ),
+        ),
       ),
     );
   }

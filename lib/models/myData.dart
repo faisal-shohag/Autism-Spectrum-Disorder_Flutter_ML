@@ -9,3 +9,13 @@ class MyData with ChangeNotifier {
     notifyListeners();
   }
 }
+
+class CounterNotifier extends ChangeNotifier {
+  int _counter = 1;
+  int get counter => _counter;
+
+  void updateCount(int newVal) {
+    _counter = newVal;
+    notifyListeners();
+  }
+}
