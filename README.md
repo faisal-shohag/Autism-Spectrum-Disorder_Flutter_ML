@@ -1,6 +1,6 @@
-# asd
+# Autiscope
 
-A new Flutter project.
+An ML based autism spectrum disorder detecting app.
 
 ## Getting Started
 
