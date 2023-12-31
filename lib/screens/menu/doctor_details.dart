@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:gap/gap.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
@@ -35,9 +36,10 @@ class _DoctorDetailsState extends State<DoctorDetails> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // Gap(30),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height - 400,
+              height: MediaQuery.of(context).size.height - 260,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/images/bg.jpg'),
@@ -265,7 +267,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10))),
           child: Text(
-            'Appoint Now',
+            'Send Request!',
             style: TextStyle(
               fontFamily: 'geb',
               fontSize: 18,

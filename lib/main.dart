@@ -1,8 +1,11 @@
-import 'package:asd/const/color.dart';
+import 'package:asd/components/snackBars.dart';
 import 'package:asd/models/myData.dart';
 import 'package:asd/screens/asd_test.dart';
+import 'package:asd/screens/doctorZone/assignedDoctor.dart';
+import 'package:asd/screens/doctorZone/reports.dart';
 import 'package:asd/screens/home.dart';
-import 'package:asd/screens/notificationScreen.dart';
+import 'package:asd/screens/menu/doctor.dart';
+import 'package:asd/screens/notifications.dart';
 import 'package:asd/screens/profile.dart';
 import 'package:asd/screens/reports.dart';
 import 'package:asd/services/authmiddle.dart';
@@ -10,7 +13,7 @@ import 'package:asd/services/notification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,12 +28,13 @@ void main() async {
   );
   await FireNotification().initNotifications();
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => CounterNotifier()),
-      ],
-      child: MyApp(),
-    ),
+    // MultiProvider(
+    //   providers: [
+    //     ChangeNotifierProvider(create: (context) => CounterNotifier()),
+    //   ],
+    // child:
+    MyApp(),
+    // ),
   );
 }
 
@@ -56,7 +60,6 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -71,14 +74,14 @@ class _MyAppState extends State<MyApp> {
         fontFamily: GoogleFonts.poppins().fontFamily,
         useMaterial3: true,
         brightness: Brightness.dark,
-        // textTheme: Theme.of(context)
-        //     .textTheme
-        //     .apply(fontFamily: GoogleFonts.poppins().fontFamily),
       ),
       themeMode: _themeMode,
-      home: AuthCheck(),
       routes: {
-        '/notifications': (context) => const NotificationScreen(),
+        '/': (context) => AuthCheck(),
+        '/notifications': (context) => const Notifications(),
+        '/doctors': (context) => const Doctor(),
+        '/assignDoctor': (context) => const AssignedDoctor(),
+        '/docReports': (context) => const docReports(),
       },
     );
   }
@@ -103,20 +106,13 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Widget> screens = [
     HomeTab(),
     ASDTEST(),
-    Profile(),
     Reports(),
+    Profile(),
   ];
 
-  final List<String> titles = ["Home", "Test", "Reports", "Profile"];
+  final List<String> titles = ["", "Test", "Reports", "Profile"];
 
   var currentIndex = 0;
-
-  Future signOut() async {
-    await FirebaseAuth.instance.signOut();
-    // debugPrint('SignOut');
-  }
-
-  final userId = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   Widget build(BuildContext context) {
@@ -126,75 +122,82 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 40,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromARGB(255, 187, 13, 80).withOpacity(0.8),
-                    Color.fromARGB(255, 182, 26, 174).withOpacity(0.9),
-                  ],
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.centerRight,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(10, 10),
-                    blurRadius: 20,
-                    color: Color.fromARGB(255, 131, 103, 231).withOpacity(0.5),
+            if (currentIndex != 0)
+              Container(
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.only(top: 0, bottom: 20),
+                padding: EdgeInsets.only(left: 20, top: 50),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color.fromARGB(255, 159, 22, 194).withOpacity(0.8),
+                      Color.fromARGB(255, 55, 39, 201).withOpacity(0.9),
+                    ],
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.centerRight,
                   ),
-                ],
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(10, 10),
+                      blurRadius: 20,
+                      color:
+                          Color.fromARGB(255, 131, 103, 231).withOpacity(0.5),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      titles[currentIndex],
+                      style: TextStyle(
+                        fontFamily: 'geb',
+                        fontSize: 35,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            // Text(
-            //   titles[currentIndex],
-            //   style: TextStyle(
-            //     fontFamily: 'geb',
-            //     fontSize: 20,
-            //     color: Color.fromARGB(228, 39, 38, 38),
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: 10,
-            // ),
             screens[currentIndex],
           ],
         ),
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-            // color: color1.withOpacity(0.4),
-            boxShadow: [
-              BoxShadow(
-                offset: Offset(3, -2),
-                color: color1.withOpacity(0.2),
-                blurRadius: 10.0,
-              )
-            ]),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
         child: Material(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.0),
           ),
           child: BottomNavigationBar(
             onTap: (index) {
-              setState(() {
-                currentIndex = index;
-              });
+              var user = FirebaseAuth.instance.currentUser!;
+
+              if (user.displayName == null && index == 1) {
+                WarningSnackBar(context,
+                    'Please complete your profile to use this feature!');
+              } else {
+                setState(() {
+                  currentIndex = index;
+                });
+              }
             },
             backgroundColor: Colors.transparent,
             selectedLabelStyle: TextStyle(fontFamily: 'geb'),
             currentIndex: currentIndex,
-            selectedItemColor: Colors.black,
+            selectedItemColor: Color.fromARGB(255, 55, 39, 201),
             elevation: 0,
-            unselectedItemColor: Colors.black54,
+            unselectedItemColor:
+                Color.fromARGB(255, 55, 39, 201).withOpacity(0.9),
             type: BottomNavigationBarType.fixed,
             items: [
               BottomNavigationBarItem(
@@ -208,15 +211,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 activeIcon: Icon(Remix.pulse_fill),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Remix.user_6_line),
-                label: 'Profile',
+                icon: Icon(Remix.pie_chart_2_line),
+                label: 'Reports',
                 activeIcon: Icon(Remix.pie_chart_2_fill),
               ),
-              // BottomNavigationBarItem(
-              //   icon: Icon(Remix.user_6_line),
-              //   label: '...',
-              //   activeIcon: Icon(Remix.user_6_fill),
-              // ),
+              BottomNavigationBarItem(
+                icon: Icon(Remix.user_6_line),
+                label: 'Profile',
+                activeIcon: Icon(Remix.user_6_fill),
+              ),
             ],
           ),
         ),

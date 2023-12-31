@@ -18,16 +18,20 @@ class _ReportsState extends State<Reports> {
           ),
           Image.asset(
             'assets/images/clipboard.png',
-            height: 300,
+            height: 150,
           ),
           SizedBox(
             height: 40,
           ),
-          Text(
-            'Diagnosis reports will be shown here!',
-            style: TextStyle(
-              fontSize: 18,
-              fontFamily: 'gsb',
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Your report will be visible here after an expert\'s evaluation.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'gsb',
+              ),
             ),
           ),
         ],

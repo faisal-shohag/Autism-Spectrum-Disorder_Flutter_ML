@@ -1,7 +1,7 @@
-import "dart:convert";
-
 import "package:asd/const/functions.dart";
+import "package:asd/screens/doctorZone/assignedDoctor.dart";
 import "package:asd/screens/image_diag.dart";
+// import "package:asd/screens/menu/doctor.dart";
 import 'package:awesome_dialog/awesome_dialog.dart';
 import "package:asd/screens/q_test.dart";
 import "package:asd/services/userinfo.dart";
@@ -9,7 +9,6 @@ import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import 'package:dotted_line/dotted_line.dart';
-import "package:flutter/services.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:gap/gap.dart";
 import "package:remixicon/remixicon.dart";
@@ -62,8 +61,8 @@ class _ASDTESTState extends State<ASDTEST> {
         examKey = "LLYpcEdg0tUTYdAGnRdW";
       });
     }
-    print(title);
-    print(examKey);
+    // print(title);
+    // print(examKey);
     DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
         await FirebaseFirestore.instance
             .collection('Tests2')
@@ -312,25 +311,25 @@ class _ASDTESTState extends State<ASDTEST> {
                           Gap(10),
                           ElevatedButton.icon(
                             onPressed: () {
-                              if (status == 0) {
-                                AwesomeDialog(
-                                        context: context,
-                                        dialogType: DialogType.noHeader,
-                                        headerAnimationLoop: false,
-                                        animType: AnimType.bottomSlide,
-                                        title: 'Incomplete Step!',
-                                        desc:
-                                            'Please complete the Q/A test first then move to the Machine Learning based test!',
-                                        buttonsTextStyle: const TextStyle(
-                                            color: Colors.black),
-                                        showCloseIcon: false,
-                                        btnOkText: "OK",
-                                        btnOkOnPress: () {})
-                                    .show();
-                              } else if (status == 1) {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => ImageDiagnosis()));
-                              }
+                              // if (status == 1) {
+                              //   AwesomeDialog(
+                              //           context: context,
+                              //           dialogType: DialogType.noHeader,
+                              //           headerAnimationLoop: false,
+                              //           animType: AnimType.bottomSlide,
+                              //           title: 'Incomplete Step!',
+                              //           desc:
+                              //               'Please complete the Q/A test first then move to the Machine Learning based test!',
+                              //           buttonsTextStyle: const TextStyle(
+                              //               color: Colors.black),
+                              //           showCloseIcon: false,
+                              //           btnOkText: "OK",
+                              //           btnOkOnPress: () {})
+                              //       .show();
+                              // } else if (status == 0) {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => ImageDiagnosis()));
+                              // }
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.indigo,
@@ -429,7 +428,10 @@ class _ASDTESTState extends State<ASDTEST> {
                           ),
                           Gap(10),
                           ElevatedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => AssignedDoctor()));
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green,
                               textStyle: TextStyle(

@@ -1,6 +1,7 @@
 // import 'package:asd/components/shadow_card3.dart';
 import 'package:asd/screens/menu/doctor_details.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -82,6 +83,7 @@ class _DoctorState extends State<Doctor> {
       body: Column(
         children: [
           Top(),
+          // Gap(10),
           Expanded(
             child: ListView.builder(
               itemCount: 5,
@@ -307,7 +309,7 @@ class Top extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  'Doctors',
+                  'Experts',
                   style: TextStyle(
                     fontFamily: 'geb',
                     color: Colors.grey.shade100,

@@ -1,7 +1,6 @@
 import 'package:asd/components/snackBars.dart';
-import 'package:asd/const/color.dart';
 import 'package:asd/main.dart';
-// import 'package:asd/screens/login.dart';
+import 'package:asd/screens/doctorState/doctorState.dart';
 import 'package:asd/screens/phoneAuth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,9 +35,110 @@ class AuthCheck extends StatelessWidget {
                     ErrorSnackBar(context, snap.error);
                   }
 
-                  if (snap.connectionState == ConnectionState.waiting) {
+                  // if (snap.connectionState == ConnectionState.waiting) {
+
+                  // }
+
+                  DocumentSnapshot<Map<String, dynamic>> userData = snap.data!;
+
+                  if (userData["access"] == "waiting") {
                     return Scaffold(
+                      backgroundColor: Color.fromARGB(255, 240, 176, 27),
                       body: Container(
+                        padding: EdgeInsets.all(15),
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        child: Column(
+                          children: [
+                            Gap(30),
+                            Image.asset(
+                              'assets/images/ribbon.png',
+                              height: 60,
+                            ),
+                            Gap(5),
+                            Text(
+                              "AutiScope",
+                              style: TextStyle(fontFamily: 'geb', fontSize: 20),
+                            ),
+                            // Gap(5),
+                            Text(
+                              "First AI based Autism Detection App in Bangladesh!",
+                              style: TextStyle(
+                                fontFamily: 'gsb',
+                                fontSize: 13,
+                              ),
+                            ),
+                            Gap(10),
+                            Container(
+                              height: 60,
+                              width: 60,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  image: DecorationImage(
+                                    image:
+                                        AssetImage('assets/images/waiting.gif'),
+                                  )),
+                            ),
+                            Text(
+                              'Waiting for Admin Approval!',
+                              style: TextStyle(
+                                fontFamily: 'geb',
+                                fontSize: 20,
+                              ),
+                            ),
+                            // Gap(5),
+                            RichText(
+                              softWrap: true,
+                              textAlign: TextAlign.start,
+                              text: TextSpan(
+                                text:
+                                    'You have successfully created an account. We\'ll reach you soon!',
+                                style: TextStyle(
+                                    color: Colors.black, fontFamily: 'gsb'),
+                                // children: [
+                                //   TextSpan(
+                                //     text: ' email_address@gmail.com.',
+                                //     style: TextStyle(
+                                //         color: Color.fromARGB(255, 17, 81, 165),
+                                //         fontFamily: 'gsb'),
+                                //   ),
+                                //   TextSpan(
+                                //     text: ' Mention this USER ID: ',
+                                //     style: TextStyle(
+                                //         color: Colors.black, fontFamily: 'gsb'),
+                                //   ),
+                                //   TextSpan(
+                                //     text: '${snapshot.data!.uid}',
+                                //     style: TextStyle(
+                                //         color: Color.fromARGB(255, 17, 81, 165),
+                                //         fontFamily: 'gsb'),
+                                //   ),
+                                //   TextSpan(
+                                //     text:
+                                //         ' and briefly explain why you need this app!',
+                                //     style: TextStyle(
+                                //         color: Colors.black, fontFamily: 'gsb'),
+                                //   ),
+                                // ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+
+                  if (userData["join_as"] == "parent") {
+                    return MyHomePage();
+                  }
+                  print("JOIN AS: ${userData['join_as']}");
+                  if (userData["join_as"] == "doctor") {
+                    return DoctorState();
+                  }
+
+                  return Scaffold(
+                    body: SingleChildScrollView(
+                      child: Container(
                         height: MediaQuery.of(context).size.height,
                         width: MediaQuery.of(context).size.width,
                         padding: EdgeInsets.only(
@@ -89,92 +189,8 @@ class AuthCheck extends StatelessWidget {
                           ],
                         ),
                       ),
-                    );
-                  }
-
-                  DocumentSnapshot<Map<String, dynamic>> userData = snap.data!;
-
-                  if (userData["access"] == "waiting") {
-                    return Scaffold(
-                      backgroundColor: Colors.grey.shade300,
-                      body: Container(
-                        padding: EdgeInsets.all(15),
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 50,
-                            ),
-                            Image.asset(
-                              'assets/images/ribbon.png',
-                              height: 120,
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            Container(
-                              height: 100,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100),
-                                  image: DecorationImage(
-                                    image:
-                                        AssetImage('assets/images/waiting.gif'),
-                                  )),
-                            ),
-                            Text(
-                              'Waiting for Admin Approval!',
-                              style: TextStyle(
-                                fontFamily: 'geb',
-                                fontSize: 24,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            RichText(
-                              softWrap: true,
-                              textAlign: TextAlign.start,
-                              text: TextSpan(
-                                text:
-                                    'You have successfully created an account! Please send an email to this address:',
-                                style: TextStyle(
-                                    color: Colors.black, fontFamily: 'gsb'),
-                                children: [
-                                  TextSpan(
-                                    text: ' email_address@gmail.com.',
-                                    style: TextStyle(
-                                        color: Color.fromARGB(255, 17, 81, 165),
-                                        fontFamily: 'gsb'),
-                                  ),
-                                  TextSpan(
-                                    text: ' Mention this USER ID: ',
-                                    style: TextStyle(
-                                        color: Colors.black, fontFamily: 'gsb'),
-                                  ),
-                                  TextSpan(
-                                    text: '${snapshot.data!.uid}',
-                                    style: TextStyle(
-                                        color: Color.fromARGB(255, 17, 81, 165),
-                                        fontFamily: 'gsb'),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        ' and briefly explain why you need this app!',
-                                    style: TextStyle(
-                                        color: Colors.black, fontFamily: 'gsb'),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }
-
-                  return MyHomePage();
+                    ),
+                  );
                 });
           }
           return PhoneAuth();

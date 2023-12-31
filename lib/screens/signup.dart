@@ -145,7 +145,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     checkVal = false;
     isClickSignUp = false;

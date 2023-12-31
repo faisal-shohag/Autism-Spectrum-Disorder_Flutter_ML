@@ -4,9 +4,11 @@ import 'package:asd/const/RegEx.dart';
 // import 'package:asd/main.dart';
 import 'package:asd/services/authmiddle.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:asd/components/snackBars.dart';
+import 'package:gap/gap.dart';
 import '../components/input.dart';
 
 class PhoneAuth extends StatefulWidget {
@@ -25,6 +27,9 @@ class _PhoneAuthState extends State<PhoneAuth> {
 
   Timer? timer;
   int start = 0;
+  SingleValueDropDownController drop_controller =
+      SingleValueDropDownController();
+  String joinAs = "";
 
   void startTime() {
     const sec = Duration(seconds: 1);
@@ -46,7 +51,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
 
   Future<void> verifyPhoneNumber(BuildContext context, bool isResend) async {
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: phone.text.trim(),
+      phoneNumber: "+88" + phone.text.trim(),
       // timeout: const Duration(seconds: 60),
       verificationCompleted: (AuthCredential phoneAuthCredential) {
         SuccessSnackBar(context, 'Verification Successfull!');
@@ -107,19 +112,44 @@ class _PhoneAuthState extends State<PhoneAuth> {
       // if (!mounted) {
       //   return;
       // }
-      setState(() {
-        if (mounted) {
-          timer!.cancel();
-        }
-      });
+      // setState(() {
+      //   if (mounted) {
+      //     timer!.cancel();
+      //   }
+      // });
 
       final user = FirebaseAuth.instance.currentUser;
       print(user!);
       if (user.displayName == null) {
-        FirebaseFirestore.instance
-            .collection('users')
-            .doc(user.uid)
-            .set({"access": "waiting", "info": false});
+        if (joinAs == "doctor") {
+          FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+            "access": "waiting",
+            "info": false,
+            "join_as": joinAs,
+            "displayName": "",
+            "phone": phone.text.trim(),
+            // "notifications": {},
+            "patients": {},
+            "requests": {},
+            "photoURL": "",
+            "ntf": false,
+            "req": false,
+          });
+        } else {
+          FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+            "access": "waiting",
+            "info": false,
+            "join_as": joinAs,
+            "displayName": "",
+            "photoURL": "",
+            "phone": phone.text.trim(),
+            "available": true,
+            // "notifications": {},
+            "ntf": false,
+            "req": false,
+            "assign": {}
+          });
+        }
       }
 
       Navigator.pushReplacement(
@@ -132,38 +162,38 @@ class _PhoneAuthState extends State<PhoneAuth> {
     }
   }
 
-  OTPDialogBox(BuildContext context) {
-    return showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return new AlertDialog(
-            title: Text('Enter your OTP'),
-            content: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InputTextField(
-                controller: OTP,
-                hintText: 'Enter OTP',
-                keyboardType: TextInputType.text,
-                obscureText: false,
-                readOnly: false,
-              ),
-            ),
-            contentPadding: EdgeInsets.all(10.0),
-            actions: <Widget>[
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  signIn(OTP.text.trim(), context);
-                },
-                child: Text(
-                  'Verify',
-                ),
-              ),
-            ],
-          );
-        });
-  }
+  // OTPDialogBox(BuildContext context) {
+  //   return showDialog(
+  //       context: context,
+  //       barrierDismissible: false,
+  //       builder: (BuildContext context) {
+  //         return new AlertDialog(
+  //           title: Text('Enter your OTP'),
+  //           content: Padding(
+  //             padding: const EdgeInsets.all(8.0),
+  //             child: InputTextField(
+  //               controller: OTP,
+  //               hintText: 'Enter OTP',
+  //               keyboardType: TextInputType.text,
+  //               obscureText: false,
+  //               readOnly: false,
+  //             ),
+  //           ),
+  //           contentPadding: EdgeInsets.all(10.0),
+  //           actions: <Widget>[
+  //             ElevatedButton(
+  //               onPressed: () {
+  //                 Navigator.of(context).pop();
+  //                 signIn(OTP.text.trim(), context);
+  //               },
+  //               child: Text(
+  //                 'Verify',
+  //               ),
+  //             ),
+  //           ],
+  //         );
+  //       });
+  // }
 
   @override
   void dispose() {
@@ -171,6 +201,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
     if (timer != null) {
       timer!.cancel();
     }
+    drop_controller.dispose();
 
     super.dispose();
   }
@@ -186,8 +217,8 @@ class _PhoneAuthState extends State<PhoneAuth> {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      Image.asset(
-                        'assets/images/ribbon.png',
+                      Image.network(
+                        'https://firebasestorage.googleapis.com/v0/b/asd-ml.appspot.com/o/Assets%2Ffingerprint-scanner.png?alt=media&token=20384a6e-f6db-4e46-9840-1c4fee2c04a7',
                         height: 120,
                       ),
                       SizedBox(
@@ -282,13 +313,11 @@ class _PhoneAuthState extends State<PhoneAuth> {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      Image.asset(
-                        'assets/images/ribbon.png',
+                      Image.network(
+                        'https://firebasestorage.googleapis.com/v0/b/asd-ml.appspot.com/o/Assets%2Ffingerprint-scanner.png?alt=media&token=20384a6e-f6db-4e46-9840-1c4fee2c04a7',
                         height: 120,
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      Gap(20),
                       Text(
                         'Login with Phone',
                         style: TextStyle(
@@ -297,18 +326,49 @@ class _PhoneAuthState extends State<PhoneAuth> {
                         ),
                       ),
                       Text(
-                        'Please provide phone number with country code. Example: +8801234567890',
+                        'Please provide phone number without country code. Example: 01234567890',
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      Gap(20),
                       isClickLogin ? CircularProgressIndicator() : Text(''),
-                      isClickLogin
-                          ? SizedBox(
-                              height: 20,
-                            )
-                          : Text(''),
+                      isClickLogin ? Gap(20) : Text(''),
+                      DropDownTextField(
+                        textFieldDecoration: InputDecoration(
+                          hintText: 'Login As',
+                          contentPadding: EdgeInsets.only(left: 20),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide(color: Colors.white),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide:
+                                BorderSide(color: Colors.red.withOpacity(0.3)),
+                            gapPadding: 0,
+                          ),
+                        ),
+                        controller: drop_controller,
+                        listSpace: 10,
+                        listPadding: ListPadding(top: 20),
+                        dropDownList: [
+                          DropDownValueModel(
+                              name: 'Login As Parent', value: 'parent'),
+                          DropDownValueModel(
+                              name: 'Login As Doctor', value: 'doctor'),
+                        ],
+                        onChanged: (val) {
+                          if (val.runtimeType != String) {
+                            setState(() {
+                              joinAs = val.value;
+                            });
+                          } else {
+                            setState(() {
+                              joinAs = "";
+                            });
+                          }
+                        },
+                      ),
+                      Gap(10),
                       InputTextField(
                         readOnly: false,
                         obscureText: false,
@@ -316,12 +376,12 @@ class _PhoneAuthState extends State<PhoneAuth> {
                         controller: phone,
                         keyboardType: TextInputType.emailAddress,
                       ),
-                      SizedBox(
-                        height: 15,
-                      ),
+                      Gap(15),
                       GestureDetector(
                         onTap: () {
-                          if (phoneVerifyRegx.hasMatch(phone.text)) {
+                          if (joinAs == "") {
+                            WarningSnackBar(context, "Please select Login as!");
+                          } else if (phoneVerifyRegx.hasMatch(phone.text)) {
                             if (!mounted) {
                               return;
                             }
@@ -339,9 +399,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
                           buttonColor: Color.fromARGB(255, 221, 56, 56),
                         ),
                       ),
-                      SizedBox(
-                        height: 50,
-                      ),
+                      Gap(50),
                     ],
                   ),
                 ),
