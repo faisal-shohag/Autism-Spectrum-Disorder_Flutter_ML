@@ -12,6 +12,8 @@ class AuthCheck extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // var uid = FirebaseAuth.instance.currentUser!.uid;
+
     return Scaffold(
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
@@ -24,22 +26,22 @@ class AuthCheck extends StatelessWidget {
             );
           } else if (snapshot.hasData) {
             return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-                stream: FirebaseFirestore.instance
-                    .collection('users')
-                    .doc(snapshot.data!.uid)
-                    .snapshots(),
-                builder: (context,
-                    AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>>
-                        snap) {
-                  if (snap.hasError) {
-                    ErrorSnackBar(context, snap.error);
-                  }
+              stream: FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(snapshot.data!.uid)
+                  .snapshots(),
+              builder: (context,
+                  AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snap) {
+                if (snap.hasError) {
+                  ErrorSnackBar(context, snap.error);
+                }
 
-                  // if (snap.connectionState == ConnectionState.waiting) {
+                // if (snap.connectionState == ConnectionState.waiting) {
 
-                  // }
-
+                // }
+                if (snap.hasData) {
                   DocumentSnapshot<Map<String, dynamic>> userData = snap.data!;
+                  // print(userData);
 
                   if (userData["access"] == "waiting") {
                     return Scaffold(
@@ -68,7 +70,7 @@ class AuthCheck extends StatelessWidget {
                                 fontSize: 13,
                               ),
                             ),
-                            Gap(10),
+                            Gap(50),
                             Container(
                               height: 60,
                               width: 60,
@@ -82,9 +84,9 @@ class AuthCheck extends StatelessWidget {
                             Text(
                               'Waiting for Admin Approval!',
                               style: TextStyle(
-                                fontFamily: 'geb',
-                                fontSize: 20,
-                              ),
+                                  fontFamily: 'geb',
+                                  fontSize: 20,
+                                  color: Colors.black),
                             ),
                             // Gap(5),
                             RichText(
@@ -191,7 +193,14 @@ class AuthCheck extends StatelessWidget {
                       ),
                     ),
                   );
-                });
+                }
+                return const SafeArea(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              },
+            );
           }
           return PhoneAuth();
         },

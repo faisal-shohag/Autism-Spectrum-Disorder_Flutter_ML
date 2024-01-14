@@ -12,10 +12,8 @@ import 'package:asd/services/authmiddle.dart';
 import 'package:asd/services/notification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-// import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:remixicon/remixicon.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -28,13 +26,12 @@ void main() async {
   );
   await FireNotification().initNotifications();
   runApp(
-    // MultiProvider(
-    //   providers: [
-    //     ChangeNotifierProvider(create: (context) => CounterNotifier()),
-    //   ],
-    // child:
-    MyApp(),
-    // ),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => CounterNotifier()),
+      ],
+      child: MyApp(),
+    ),
   );
 }
 
@@ -46,20 +43,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ThemeMode _themeMode = ThemeMode.light;
-
-  bool get useLightMode {
-    switch (_themeMode) {
-      case ThemeMode.system:
-        return SchedulerBinding.instance.window.platformBrightness ==
-            Brightness.light;
-      case ThemeMode.light:
-        return true;
-      case ThemeMode.dark:
-        return false;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -70,12 +53,11 @@ class _MyAppState extends State<MyApp> {
         fontFamily: 'Gilroy',
         brightness: Brightness.light,
       ),
-      darkTheme: ThemeData(
-        fontFamily: GoogleFonts.poppins().fontFamily,
-        useMaterial3: true,
-        brightness: Brightness.dark,
-      ),
-      themeMode: _themeMode,
+      // darkTheme: ThemeData(
+      //   fontFamily: GoogleFonts.poppins().fontFamily,
+      //   useMaterial3: true,
+      //   brightness: Brightness.light,
+      // ),
       routes: {
         '/': (context) => AuthCheck(),
         '/notifications': (context) => const Notifications(),
@@ -182,7 +164,8 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: (index) {
               var user = FirebaseAuth.instance.currentUser!;
 
-              if (user.displayName == null && index == 1) {
+              if ((user.displayName == null || user.displayName == "") &&
+                  (index == 1 || index == 2)) {
                 WarningSnackBar(context,
                     'Please complete your profile to use this feature!');
               } else {

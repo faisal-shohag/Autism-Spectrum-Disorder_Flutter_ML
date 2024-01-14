@@ -34,6 +34,7 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
   bool isClickPredict = false;
   XFile? picked;
   String result = "";
+  dynamic prediction_data;
   String base64Image = "";
   int resState = 0;
   bool isUploading = false;
@@ -81,6 +82,8 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
       if (response.statusCode == 200) {
         final data = response.data;
         setState(() {
+          prediction_data = data;
+          // print(prediction_data);
           result = data['res'];
           base64Image = data['img'];
           // isClickPredict = false;
@@ -105,8 +108,6 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
       });
     }
   }
-
-  //http://a32d-35-197-67-85.ngrok-free.app
 
   final metadata = SettableMetadata(contentType: "image/jpeg");
   final storageRef = FirebaseStorage.instance.ref();
@@ -143,7 +144,14 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
               await FirebaseFirestore.instance
                   .collection('image_prediction')
                   .doc(user.uid)
-                  .set({"photoURL": photo_url, "result": result});
+                  .set({
+                "photoURL": photo_url,
+                "result": result,
+                "prediction_data": {
+                  "probabilities": prediction_data["probabilities"],
+                  "class": prediction_data["class"]
+                }
+              });
               setState(() {
                 isUploading = false;
                 isClickPredict = false;
@@ -215,6 +223,10 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
             );
           }
           if (snapshot.data!.exists) {
+            dynamic pred_data = snapshot.data!["prediction_data"];
+            // int pred_class = pred_data["class"];
+            List<dynamic> prob = pred_data["probabilities"];
+
             return SingleChildScrollView(
               child: Center(
                 child: Padding(
@@ -236,10 +248,66 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                           border: Border.all(color: Colors.pink, width: 5.0),
                         ),
                       ),
-                      Gap(5),
-                      Text(
-                        'Face which was predicted!',
-                        style: TextStyle(fontFamily: 'geb'),
+                      Gap(10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 90,
+                            padding: EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  (prob[0] * 100).toStringAsFixed(2) + '%',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                      fontFamily: 'geb'),
+                                ),
+                                Gap(5),
+                                Text(
+                                  "Autistic",
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      color: Colors.white,
+                                      fontFamily: 'gsb'),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Gap(10),
+                          Container(
+                            width: 90,
+                            padding: EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  (prob[1] * 100).toStringAsFixed(2) + '%',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                      fontFamily: 'geb'),
+                                ),
+                                Gap(5),
+                                Text(
+                                  "Non-autistic",
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      color: Colors.white,
+                                      fontFamily: 'gsb'),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                       Gap(10),
                       Text(

@@ -37,23 +37,6 @@ class BlogDetails extends StatelessWidget {
                 image: DecorationImage(
                     image: NetworkImage(img!), fit: BoxFit.cover),
               ),
-              // child: Container(
-              //   width: MediaQuery.of(context).size.width,
-              //   alignment: Alignment.bottomLeft,
-              //   padding: EdgeInsets.only(
-              //     left: 10,
-              //     bottom: 20,
-              //   ),
-              //   child: Text(
-              //     title as String,
-              //     overflow: TextOverflow.ellipsis,
-              //     style: TextStyle(
-              //       fontFamily: 'geb',
-              //       fontSize: 30,
-              //       color: Colors.grey,
-              //     ),
-              //   ),
-              // ),
             ),
             Container(
               decoration: BoxDecoration(

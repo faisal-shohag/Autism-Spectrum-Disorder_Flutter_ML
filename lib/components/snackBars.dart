@@ -7,9 +7,15 @@ void ErrorSnackBar(context, text) {
       text,
       style: TextStyle(
         color: Colors.white,
+        fontWeight: FontWeight.bold,
       ),
     ),
     backgroundColor: colorRed,
+    behavior: SnackBarBehavior.floating,
+    action: SnackBarAction(
+      label: 'Dismiss',
+      onPressed: () {},
+    ),
   ));
 }
 
@@ -19,9 +25,15 @@ void WarningSnackBar(context, text) {
       text,
       style: TextStyle(
         color: Colors.white,
+        fontWeight: FontWeight.bold,
       ),
     ),
-    backgroundColor: Colors.orange,
+    backgroundColor: Colors.deepOrange,
+    behavior: SnackBarBehavior.floating,
+    action: SnackBarAction(
+      label: 'Dismiss',
+      onPressed: () {},
+    ),
   ));
 }
 
@@ -31,8 +43,14 @@ void SuccessSnackBar(context, text) {
       text,
       style: TextStyle(
         color: Colors.white,
+        fontWeight: FontWeight.bold,
       ),
     ),
     backgroundColor: Colors.green,
+    behavior: SnackBarBehavior.floating,
+    action: SnackBarAction(
+      label: 'Dismiss',
+      onPressed: () {},
+    ),
   ));
 }
