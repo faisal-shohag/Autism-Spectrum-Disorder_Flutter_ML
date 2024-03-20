@@ -139,34 +139,51 @@ caregiver, a drink of water, or an extra hug or kiss.</li>
                     Container(
                       margin: EdgeInsets.all(5),
                       padding: EdgeInsets.only(
-                        left: 20,
+                        left: 3,
                         top: 10,
-                        bottom: 10,
+                        bottom: 4,
                         right: 20,
                       ),
                       width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Color.fromARGB(255, 159, 22, 194).withOpacity(0.8),
-                            Color.fromARGB(255, 55, 39, 201).withOpacity(0.9),
-                          ],
-                          begin: Alignment.bottomLeft,
-                          end: Alignment.centerRight,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            offset: Offset(10, 10),
-                            blurRadius: 20,
-                            color: Color.fromARGB(255, 131, 103, 231)
-                                .withOpacity(0.5),
-                          ),
-                        ],
-                      ),
+                      // decoration: BoxDecoration(
+                      //   gradient: LinearGradient(
+                      //     colors: [
+                      //       Color.fromARGB(255, 159, 22, 194).withOpacity(0.8),
+                      //       Color.fromARGB(255, 55, 39, 201).withOpacity(0.9),
+                      //     ],
+                      //     begin: Alignment.bottomLeft,
+                      //     end: Alignment.centerRight,
+                      //   ),
+                      //   borderRadius: BorderRadius.circular(20),
+                      //   boxShadow: [
+                      //     BoxShadow(
+                      //       offset: Offset(10, 10),
+                      //       blurRadius: 20,
+                      //       color: Color.fromARGB(255, 131, 103, 231)
+                      //           .withOpacity(0.5),
+                      //     ),
+                      //   ],
+                      // ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          Container(
+                            child: FirebaseAuth
+                                        .instance.currentUser!.photoURL !=
+                                    null
+                                ? CircleAvatar(
+                                    radius: 30,
+                                    backgroundImage: NetworkImage(FirebaseAuth
+                                        .instance.currentUser!.photoURL
+                                        .toString()),
+                                  )
+                                : CircleAvatar(
+                                    radius: 30,
+                                    backgroundImage:
+                                        AssetImage('assets/boy.png'),
+                                  ),
+                          ),
+                          Gap(10),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,46 +191,45 @@ caregiver, a drink of water, or an extra hug or kiss.</li>
                               Text(
                                 "Hi,",
                                 style: TextStyle(
-                                    fontFamily: 'geb',
-                                    fontSize: 16,
-                                    color: Colors.white),
+                                  fontFamily: 'geb',
+                                  fontSize: 14,
+                                ),
                               ),
                               Text(
                                 '${userData["displayName"]}',
                                 style: TextStyle(
                                   fontFamily: 'geb',
                                   fontSize: 21,
-                                  color: Colors.white,
                                 ),
                               ),
                             ],
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Notifications()));
-                            },
-                            child: (ntf)
-                                ? RippleAnimation(
-                                    color: Colors.white,
-                                    repeat: true,
-                                    minRadius: 30,
-                                    child: CircleAvatar(
-                                      child: Icon(
-                                        Remix.notification_4_fill,
-                                        size: 25,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  )
-                                : CircleAvatar(
-                                    child: Icon(
-                                      Remix.notification_4_fill,
-                                      size: 25,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                          )
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     Navigator.of(context).push(MaterialPageRoute(
+                          //         builder: (context) => Notifications()));
+                          //   },
+                          //   child: (ntf)
+                          //       ? RippleAnimation(
+                          //           color: Colors.white,
+                          //           repeat: true,
+                          //           minRadius: 30,
+                          //           child: CircleAvatar(
+                          //             child: Icon(
+                          //               Remix.notification_4_fill,
+                          //               size: 25,
+                          //               color: Colors.black,
+                          //             ),
+                          //           ),
+                          //         )
+                          //       : CircleAvatar(
+                          //           child: Icon(
+                          //             Remix.notification_4_fill,
+                          //             size: 25,
+                          //             color: Colors.black,
+                          //           ),
+                          //         ),
+                          // )
                         ],
                       ),
                     ),
@@ -313,154 +329,154 @@ caregiver, a drink of water, or an extra hug or kiss.</li>
           ),
           Gap(20),
           if ((userData["info"] == true))
-            GestureDetector(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AssignedDoctor()));
-              },
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  MenuTtitle(
-                    title: 'Assigned Doctor',
-                  ).animate(delay: 100.ms).fadeIn(duration: 500.ms).slideY(
-                        duration: 500.ms,
-                        begin: 0.3,
-                      ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.all(10),
-                    margin: EdgeInsets.only(left: 20, right: 20, bottom: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          offset: Offset(2, 3),
-                          blurRadius: 20,
-                          color: Color.fromARGB(255, 131, 127, 127)
-                              .withOpacity(0.2),
-                        ),
-                      ],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        RippleAnimation(
-                          repeat: true,
-                          minRadius: 20,
-                          color: Colors.purple,
-                          child: CircleAvatar(
-                            radius: 20,
-                            backgroundImage: NetworkImage(
-                                'https://www.felixhospital.com/sites/default/files/2022-11/dr-aditi-narad.jpg'),
-                          ),
-                        ),
-                        Gap(15),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Dr. Aditi Narad",
-                              style: TextStyle(fontSize: 20, fontFamily: 'geb'),
-                            ),
-                            // Gap(5),
-                            // Text(
-                            //   'BASLP, MASLP',
-                            //   style: TextStyle(
-                            //     fontFamily: 'gsb',
-                            //     fontSize: 16,
-                            //   ),
-                            // ),
-                            // Text(
-                            //   'Audiology & Speech Therapy',
-                            //   style: TextStyle(
-                            //     fontFamily: 'gsb',
-                            //     fontSize: 14,
-                            //   ),
-                            // ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Remix.map_pin_2_fill,
-                                  size: 15,
-                                ),
-                                Gap(3),
-                                Text(
-                                  'Rangpur',
-                                  style: TextStyle(
-                                    fontFamily: 'gsb',
-                                    fontSize: 13,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-          // Column(
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: [
-          //     MenuTtitle(
-          //       title: 'Doctor zone',
-          //     ).animate(delay: 100.ms).fadeIn(duration: 500.ms).slideY(
-          //           duration: 500.ms,
-          //           begin: 0.3,
-          //         ),
-          //     Gap(5),
-          //     Container(
-          //       // width: MediaQuery.of(context).size.width,
-          //       height: 50,
-          //       child: ListView(
-          //         scrollDirection: Axis.horizontal,
-          //         children: [
-          //           GestureDetector(
-          //             onTap: () {
-          //               Navigator.of(context).pushNamed('/doctors');
-          //             },
-          //             child: SmallMenuCard(
-          //               title: 'Doctors',
-          //               menuIcon: FontAwesomeIcons.userDoctor,
-          //             ),
-          //           ),
-          //           Gap(10),
-          //           GestureDetector(
-          //             onTap: () {
-          //               Navigator.of(context).pushNamed('/schedules');
-          //             },
-          //             child: SmallMenuCard(
-          //               title: 'Schedules',
-          //               menuIcon: FontAwesomeIcons.calendarPlus,
-          //             ),
-          //           ),
-          //           // Gap(10),
-          //           // GestureDetector(
-          //           //   onTap: () {
-          //           //     Navigator.of(context).pushNamed('/docReports');
-          //           //   },
-          //           //   child: SmallMenuCard(
-          //           //     title: 'Reports',
-          //           //     menuIcon: FontAwesomeIcons.clipboard,
-          //           //   ),
-          //           // ),
-          //         ],
-          //       ),
-          //     ),
-          //     Gap(20),
-          //   ],
-          // ),
-          MenuTtitle(
-            title: 'Do you know?',
-          ).animate(delay: 100.ms).fadeIn(duration: 500.ms).slideY(
-                duration: 500.ms,
-                begin: 0.3,
-              ),
+            // GestureDetector(
+            //   onTap: () {
+            //     Navigator.push(context,
+            //         MaterialPageRoute(builder: (context) => AssignedDoctor()));
+            //   },
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       MenuTtitle(
+            //         title: 'Assigned Doctor',
+            //       ).animate(delay: 100.ms).fadeIn(duration: 500.ms).slideY(
+            //             duration: 500.ms,
+            //             begin: 0.3,
+            //           ),
+            //       Container(
+            //         width: MediaQuery.of(context).size.width,
+            //         padding: EdgeInsets.all(10),
+            //         margin: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+            //         decoration: BoxDecoration(
+            //           color: Colors.white,
+            //           boxShadow: [
+            //             BoxShadow(
+            //               offset: Offset(2, 3),
+            //               blurRadius: 20,
+            //               color: Color.fromARGB(255, 131, 127, 127)
+            //                   .withOpacity(0.2),
+            //             ),
+            //           ],
+            //           borderRadius: BorderRadius.circular(10),
+            //         ),
+            //         child: Row(
+            //           mainAxisAlignment: MainAxisAlignment.start,
+            //           children: [
+            //             RippleAnimation(
+            //               repeat: true,
+            //               minRadius: 20,
+            //               color: Colors.purple,
+            //               child: CircleAvatar(
+            //                 radius: 20,
+            //                 backgroundImage: NetworkImage(
+            //                     'https://www.felixhospital.com/sites/default/files/2022-11/dr-aditi-narad.jpg'),
+            //               ),
+            //             ),
+            //             Gap(15),
+            //             Column(
+            //               crossAxisAlignment: CrossAxisAlignment.start,
+            //               children: [
+            //                 Text(
+            //                   "Dr. Aditi Narad",
+            //                   style: TextStyle(fontSize: 20, fontFamily: 'geb'),
+            //                 ),
+            //                 // Gap(5),
+            //                 // Text(
+            //                 //   'BASLP, MASLP',
+            //                 //   style: TextStyle(
+            //                 //     fontFamily: 'gsb',
+            //                 //     fontSize: 16,
+            //                 //   ),
+            //                 // ),
+            //                 // Text(
+            //                 //   'Audiology & Speech Therapy',
+            //                 //   style: TextStyle(
+            //                 //     fontFamily: 'gsb',
+            //                 //     fontSize: 14,
+            //                 //   ),
+            //                 // ),
+            //                 Row(
+            //                   crossAxisAlignment: CrossAxisAlignment.center,
+            //                   children: [
+            //                     Icon(
+            //                       Remix.map_pin_2_fill,
+            //                       size: 15,
+            //                     ),
+            //                     Gap(3),
+            //                     Text(
+            //                       'Rangpur',
+            //                       style: TextStyle(
+            //                         fontFamily: 'gsb',
+            //                         fontSize: 13,
+            //                       ),
+            //                     ),
+            //                   ],
+            //                 ),
+            //               ],
+            //             )
+            //           ],
+            //         ),
+            //       )
+            //     ],
+            //   ),
+            // ),
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     MenuTtitle(
+            //       title: 'Doctor zone',
+            //     ).animate(delay: 100.ms).fadeIn(duration: 500.ms).slideY(
+            //           duration: 500.ms,
+            //           begin: 0.3,
+            //         ),
+            //     Gap(5),
+            //     Container(
+            //       // width: MediaQuery.of(context).size.width,
+            //       height: 50,
+            //       child: ListView(
+            //         scrollDirection: Axis.horizontal,
+            //         children: [
+            //           GestureDetector(
+            //             onTap: () {
+            //               Navigator.of(context).pushNamed('/doctors');
+            //             },
+            //             child: SmallMenuCard(
+            //               title: 'Doctors',
+            //               menuIcon: FontAwesomeIcons.userDoctor,
+            //             ),
+            //           ),
+            //           Gap(10),
+            //           GestureDetector(
+            //             onTap: () {
+            //               Navigator.of(context).pushNamed('/schedules');
+            //             },
+            //             child: SmallMenuCard(
+            //               title: 'Schedules',
+            //               menuIcon: FontAwesomeIcons.calendarPlus,
+            //             ),
+            //           ),
+            //           // Gap(10),
+            //           // GestureDetector(
+            //           //   onTap: () {
+            //           //     Navigator.of(context).pushNamed('/docReports');
+            //           //   },
+            //           //   child: SmallMenuCard(
+            //           //     title: 'Reports',
+            //           //     menuIcon: FontAwesomeIcons.clipboard,
+            //           //   ),
+            //           // ),
+            //         ],
+            //       ),
+            //     ),
+            //     Gap(20),
+            //   ],
+            // ),
+            MenuTtitle(
+              title: 'Do you know?',
+            ).animate(delay: 100.ms).fadeIn(duration: 500.ms).slideY(
+                  duration: 500.ms,
+                  begin: 0.3,
+                ),
 
           Container(
             height: 220,

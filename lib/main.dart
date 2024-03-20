@@ -88,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Widget> screens = [
     HomeTab(),
     ASDTEST(),
-    Reports(),
+    // Reports(),
     Profile(),
   ];
 
@@ -149,62 +149,54 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
+      bottomNavigationBar: Material(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
         ),
-        child: Material(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          child: BottomNavigationBar(
-            onTap: (index) {
-              var user = FirebaseAuth.instance.currentUser!;
+        child: BottomNavigationBar(
+          onTap: (index) {
+            var user = FirebaseAuth.instance.currentUser!;
 
-              if ((user.displayName == null || user.displayName == "") &&
-                  (index == 1 || index == 2)) {
-                WarningSnackBar(context,
-                    'Please complete your profile to use this feature!');
-              } else {
-                setState(() {
-                  currentIndex = index;
-                });
-              }
-            },
-            backgroundColor: Colors.transparent,
-            selectedLabelStyle: TextStyle(fontFamily: 'geb'),
-            currentIndex: currentIndex,
-            selectedItemColor: Color.fromARGB(255, 55, 39, 201),
-            elevation: 0,
-            unselectedItemColor:
-                Color.fromARGB(255, 55, 39, 201).withOpacity(0.9),
-            type: BottomNavigationBarType.fixed,
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(Remix.home_2_line),
-                label: 'Home',
-                activeIcon: Icon(Remix.home_2_fill),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Remix.pulse_line),
-                label: 'Test',
-                activeIcon: Icon(Remix.pulse_fill),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Remix.pie_chart_2_line),
-                label: 'Reports',
-                activeIcon: Icon(Remix.pie_chart_2_fill),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Remix.user_6_line),
-                label: 'Profile',
-                activeIcon: Icon(Remix.user_6_fill),
-              ),
-            ],
-          ),
+            if ((user.displayName == null || user.displayName == "") &&
+                (index == 1 || index == 2)) {
+              WarningSnackBar(
+                  context, 'Please complete your profile to use this feature!');
+            } else {
+              setState(() {
+                currentIndex = index;
+              });
+            }
+          },
+          backgroundColor: Colors.transparent,
+          selectedLabelStyle: TextStyle(fontFamily: 'geb'),
+          currentIndex: currentIndex,
+          selectedItemColor: Color.fromARGB(255, 55, 39, 201),
+          elevation: 0,
+          unselectedItemColor:
+              Color.fromARGB(255, 55, 39, 201).withOpacity(0.9),
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Remix.home_2_line),
+              label: 'Home',
+              activeIcon: Icon(Remix.home_2_fill),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Remix.pulse_line),
+              label: 'Test',
+              activeIcon: Icon(Remix.pulse_fill),
+            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Remix.pie_chart_2_line),
+            //   label: 'Reports',
+            //   activeIcon: Icon(Remix.pie_chart_2_fill),
+            // ),
+            BottomNavigationBarItem(
+              icon: Icon(Remix.user_6_line),
+              label: 'Profile',
+              activeIcon: Icon(Remix.user_6_fill),
+            ),
+          ],
         ),
       ),
     );

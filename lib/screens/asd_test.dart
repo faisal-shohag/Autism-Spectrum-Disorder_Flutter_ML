@@ -355,6 +355,7 @@ class _ASDTESTState extends State<ASDTEST> {
                                 duration: 500.ms,
                                 begin: -0.3,
                               ),
+                          // Gap(5),
                         ],
                       ),
                     ),
@@ -373,95 +374,138 @@ class _ASDTESTState extends State<ASDTEST> {
                 dashGapColor: Colors.transparent,
                 dashGapRadius: 0.0,
               ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.2,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+
+              ElevatedButton.icon(
+                onPressed: () {
+                  // if (status == 1) {
+                  AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.noHeader,
+                          headerAnimationLoop: false,
+                          animType: AnimType.bottomSlide,
+                          title: 'Aww!!',
+                          desc: 'Result is not ready yet!',
+                          buttonsTextStyle:
+                              const TextStyle(color: Colors.black),
+                          showCloseIcon: false,
+                          btnOkText: "OK",
+                          btnOkOnPress: () {})
+                      .show();
+                  // } else if (status == 0) {
+                  // Navigator.of(context).push(MaterialPageRoute(
+                  //     builder: (context) => ImageDiagnosis()));
+                  // }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFEC1EE8),
+                  textStyle: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                icon: Icon(
+                  Remix.arrow_right_s_line,
                   color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(-1, -5),
-                      blurRadius: 20,
-                      color:
-                          Color.fromARGB(255, 131, 103, 231).withOpacity(0.3),
-                    ),
-                  ],
                 ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(30),
-                          bottomRight: Radius.circular(30),
-                          topLeft: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                        ),
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/d3.jpg'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Gap(20),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      child: Column(
-                        children: [
-                          Gap(20),
-                          Text(
-                            'Expert Test',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontFamily: 'geb',
-                              fontSize: 20,
-                            ),
-                          ),
-                          Text(
-                            'We suggest an expert\'s concern for further test based on the test result.(If needed)',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'gsb',
-                              fontSize: 10,
-                            ),
-                          ),
-                          Gap(10),
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => AssignedDoctor()));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
-                              textStyle: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                            icon: Icon(
-                              Remix.arrow_right_s_line,
-                              color: Colors.white,
-                            ),
-                            label: Text(
-                              'Appoint!',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'geb',
-                              ),
-                            ),
-                          )
-                              .animate(delay: 200.ms)
-                              .fadeIn(duration: 500.ms)
-                              .slideX(
-                                duration: 500.ms,
-                                begin: -0.3,
-                              ),
-                        ],
-                      ),
-                    ),
-                  ],
+                label: Text(
+                  'See the overall Result',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'geb',
+                  ),
                 ),
-              ),
+              ).animate(delay: 150.ms).fadeIn(duration: 500.ms).slideX(
+                    duration: 500.ms,
+                    begin: -0.3,
+                  ),
+              // Container(
+              //   height: MediaQuery.of(context).size.height * 0.2,
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(10),
+              //     color: Colors.white,
+              //     boxShadow: [
+              //       BoxShadow(
+              //         offset: Offset(-1, -5),
+              //         blurRadius: 20,
+              //         color:
+              //             Color.fromARGB(255, 131, 103, 231).withOpacity(0.3),
+              //       ),
+              //     ],
+              //   ),
+              //   child: Row(
+              //     children: [
+              //       Container(
+              //         width: 100,
+              //         decoration: BoxDecoration(
+              //           borderRadius: BorderRadius.only(
+              //             topRight: Radius.circular(30),
+              //             bottomRight: Radius.circular(30),
+              //             topLeft: Radius.circular(10),
+              //             bottomLeft: Radius.circular(10),
+              //           ),
+              //           image: DecorationImage(
+              //             image: AssetImage('assets/images/d3.jpg'),
+              //             fit: BoxFit.cover,
+              //           ),
+              //         ),
+              //       ),
+              //       Gap(20),
+              //       Container(
+              //         width: MediaQuery.of(context).size.width * 0.6,
+              //         child: Column(
+              //           children: [
+              //             Gap(20),
+              //             Text(
+              //               'Expert Test',
+              //               overflow: TextOverflow.ellipsis,
+              //               style: TextStyle(
+              //                 fontFamily: 'geb',
+              //                 fontSize: 20,
+              //               ),
+              //             ),
+              //             Text(
+              //               'We suggest an expert\'s concern for further test based on the test result.(If needed)',
+              //               textAlign: TextAlign.center,
+              //               style: TextStyle(
+              //                 fontFamily: 'gsb',
+              //                 fontSize: 10,
+              //               ),
+              //             ),
+              //             Gap(10),
+              //             ElevatedButton.icon(
+              //               onPressed: () {
+              //                 Navigator.of(context).push(MaterialPageRoute(
+              //                     builder: (context) => AssignedDoctor()));
+              //               },
+              //               style: ElevatedButton.styleFrom(
+              //                 backgroundColor: Colors.green,
+              //                 textStyle: TextStyle(
+              //                   color: Colors.white,
+              //                 ),
+              //               ),
+              //               icon: Icon(
+              //                 Remix.arrow_right_s_line,
+              //                 color: Colors.white,
+              //               ),
+              //               label: Text(
+              //                 'Appoint!',
+              //                 style: TextStyle(
+              //                   color: Colors.white,
+              //                   fontFamily: 'geb',
+              //                 ),
+              //               ),
+              //             )
+              //                 .animate(delay: 200.ms)
+              //                 .fadeIn(duration: 500.ms)
+              //                 .slideX(
+              //                   duration: 500.ms,
+              //                   begin: -0.3,
+              //                 ),
+              //           ],
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),

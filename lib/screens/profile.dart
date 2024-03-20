@@ -29,6 +29,7 @@ class _ProfileState extends State<Profile> {
   File? PickedImage;
   bool isUploading = false;
   double? progress;
+  String photoURL = "";
 
   Future<void> pickFromFile() async {
     final picker = ImagePicker();
@@ -64,12 +65,15 @@ class _ProfileState extends State<Profile> {
             break;
           case TaskState.success:
             final photo_url = await event.ref.getDownloadURL();
-            await FirebaseFirestore.instance
-                .collection('users')
-                .doc(user.uid)
-                .update({"photoURL": photo_url});
+            // await FirebaseFirestore.instance
+            //     .collection('users')
+            //     .doc(user.uid)
+            //     .update({"photoURL": photo_url});
+            FirebaseAuth.instance.currentUser!.updatePhotoURL(photo_url);
+
             setState(() {
               isUploading = false;
+              photoURL = photo_url;
             });
             print("Photo URL: ${photo_url}");
             print("Uploaded!");
@@ -85,6 +89,15 @@ class _ProfileState extends State<Profile> {
     } catch (e) {
       print(e);
     }
+  }
+
+  @override
+  void initState() {
+    if (FirebaseAuth.instance.currentUser!.photoURL != null) {
+      photoURL = (FirebaseAuth.instance.currentUser!.photoURL).toString();
+    }
+    // print(photoURL);
+    super.initState();
   }
 
   @override
@@ -210,14 +223,14 @@ class _ProfileState extends State<Profile> {
                 ),
                 height: 100,
                 width: 100,
-                child: (userData["photoURL"] == "")
+                child: (photoURL == "")
                     ? CircleAvatar(
                         backgroundImage: AssetImage('assets/images/boy.png'),
                         child:
                             (isUploading) ? CircularProgressIndicator() : null,
                       )
                     : CircleAvatar(
-                        backgroundImage: NetworkImage(userData["photoURL"]),
+                        backgroundImage: NetworkImage(photoURL),
                         child:
                             (isUploading) ? CircularProgressIndicator() : null,
                       ),
