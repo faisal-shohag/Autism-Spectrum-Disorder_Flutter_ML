@@ -3,12 +3,14 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:asd/components/button.dart';
+import 'package:asd/components/iconMenuItem.dart';
 import 'package:asd/components/input.dart';
 // import 'package:asd/components/scan_effect.dart';
 // import 'package:asd/components/diagnosis_form.dart';
 import 'package:asd/components/snackBars.dart';
 import 'package:asd/const/RegEx.dart';
 import 'package:asd/const/color.dart';
+import 'package:asd/screens/ourself.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
@@ -186,6 +188,26 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
     super.dispose();
   }
 
+  Future<void> getServerURL() async {
+    DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+        await FirebaseFirestore.instance
+            .collection('Others')
+            .doc('serverURL')
+            .get();
+
+    DocumentSnapshot<Map<String, dynamic>> doc = documentSnapshot;
+    // setState(() {
+    serverURL.text = "";
+    // });
+  }
+
+  @override
+  void initState() {
+    //
+    getServerURL();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -233,11 +255,11 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                   padding: EdgeInsets.all(0.8),
                   child: Column(
                     children: [
-                      Gap(20),
-                      Text(
-                        'Test Result',
-                        style: TextStyle(fontFamily: 'geb', fontSize: 21),
-                      ),
+                      // Gap(20),
+                      // Text(
+                      //   'Test Result',
+                      //   style: TextStyle(fontFamily: 'geb', fontSize: 21),
+                      // ),
                       Gap(15),
                       Container(
                         height: 100,
@@ -245,7 +267,11 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                               image: NetworkImage(snapshot.data!["photoURL"])),
-                          border: Border.all(color: Colors.pink, width: 5.0),
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: Colors.green,
+                            width: 5.0,
+                          ),
                         ),
                       ),
                       Gap(10),
@@ -268,7 +294,6 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                                       color: Colors.white,
                                       fontFamily: 'geb'),
                                 ),
-                                Gap(5),
                                 Text(
                                   "Autistic",
                                   style: TextStyle(
@@ -279,7 +304,7 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                               ],
                             ),
                           ),
-                          Gap(10),
+                          Gap(20),
                           Container(
                             width: 90,
                             padding: EdgeInsets.all(8.0),
@@ -296,7 +321,6 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                                       color: Colors.white,
                                       fontFamily: 'geb'),
                                 ),
-                                Gap(5),
                                 Text(
                                   "Non-autistic",
                                   style: TextStyle(
@@ -311,7 +335,7 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                       ),
                       Gap(10),
                       Text(
-                        'Autistic Status: ${(snapshot.data!["result"]) == "Autistic" ? "High Risk" : "Safe"}',
+                        'Status: ${(prob[1] * 100).toInt() > 69 ? 'Safe' : (prob[1] * 100).toInt() > 59 ? 'Moderate' : 'Severe'}',
                         style: TextStyle(
                           fontFamily: 'geb',
                           fontSize: 19,
@@ -343,6 +367,43 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                               ),
                       ),
                       Gap(10),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 20,
+                          right: 20,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              child: IconMenuItem(
+                                imageURL:
+                                    'https://i.postimg.cc/66gLgy3K/3306613.png',
+                                title: 'About Result',
+                              ),
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => OurSelf(
+                                        title: 'About the result', index: 2)));
+                              },
+                            ),
+                            Gap(30),
+                            GestureDetector(
+                              child: IconMenuItem(
+                                imageURL:
+                                    'https://i.postimg.cc/c13TR4rk/2059784.png',
+                                title: 'Data Policy',
+                              ),
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => OurSelf(
+                                        title: 'Data Policy', index: 1)));
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      Gap(20),
                       GestureDetector(
                         onTap: () {
                           AwesomeDialog(
@@ -372,8 +433,10 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                               }).show();
                         },
                         child: FlexButton(
-                          buttonColor: Colors.pink,
-                          buttonText: "Reset/Test Again",
+                          width: 200,
+                          prefixIcon: Remix.refresh_line,
+                          buttonColor: Colors.black,
+                          buttonText: "Reset & Test Again",
                         ),
                       ),
                     ],
@@ -503,9 +566,7 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                                 ],
                               ),
                             ),
-                          SizedBox(
-                            height: 10,
-                          ),
+                          Gap(20),
                           GestureDetector(
                             onTap: () async {
                               debugPrint('Predict');
@@ -537,8 +598,10 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                                     ),
                                   )
                                 : FlexButton(
-                                    buttonText: 'Test with this photo!',
-                                    buttonColor: Colors.pink,
+                                    prefixIcon: Remix.play_line,
+                                    buttonText: 'Start Test',
+                                    width: 180,
+                                    buttonColor: Colors.black,
                                     // width: 100,
                                   ),
                           ),
@@ -549,111 +612,133 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                     ),
                     if (isClickPredict)
                       Container(
-                        padding: EdgeInsets.all(10),
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(2, 3),
-                              blurRadius: 20,
-                              color: color2.withOpacity(0.3),
-                            )
-                          ],
+                        height: MediaQuery.of(context).size.height,
+                        child: Center(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CircularProgressIndicator(),
+                              Gap(5),
+                              Text(
+                                "Testing...Please wait...",
+                                style: TextStyle(fontFamily: 'geb'),
+                              ),
+                              Gap(10),
+                              Text(
+                                'Please do not close the app or this screen!',
+                                style: TextStyle(
+                                    color: Colors.red, fontFamily: 'geb'),
+                              )
+                            ],
+                          ),
                         ),
-                        child: Column(
-                          children: [
-                            (isClickPredict && result == "")
-                                ? Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        height: 20,
-                                        width: 20,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      Gap(10),
-                                      Text(
-                                        'Analysing & predicting...',
-                                        style: TextStyle(
-                                            fontSize: 13.0, fontFamily: 'geb'),
-                                      ),
-                                    ],
-                                  )
-                                    .animate(delay: 200.ms)
-                                    .fadeIn(duration: 500.ms)
-                                    .slideY(
-                                      duration: 500.ms,
-                                      begin: 0.3,
-                                    )
-                                : (result != "")
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Remix.check_double_fill,
-                                            color: Colors.green,
-                                          ),
-                                          Gap(10),
-                                          Text(
-                                            'Analysing & predicting...',
-                                            style: TextStyle(
-                                                fontSize: 13.0,
-                                                fontFamily: 'geb'),
-                                          ),
-                                        ],
-                                      )
-                                        .animate(delay: 200.ms)
-                                        .fadeIn(duration: 500.ms)
-                                        .slideY(
-                                          duration: 500.ms,
-                                          begin: 0.3,
-                                        )
-                                    : Text(""),
-                            Gap(10),
-                            (isUploading)
-                                ? (progress != null)
-                                    ? Column(
-                                        children: [
-                                          Gap(5),
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.60,
-                                            child: LinearProgressIndicator(
-                                              value: progress,
-                                              minHeight: 2.0,
-                                              color: Colors.red,
-                                            ),
-                                          ),
-                                          Gap(5),
-                                          Text(
-                                            "Sending results to database...($progress%)",
-                                            style: TextStyle(
-                                                fontSize: 13.0,
-                                                fontFamily: 'geb'),
-                                          ),
-                                          Gap(10)
-                                        ],
-                                      )
-                                        .animate(delay: 200.ms)
-                                        .fadeIn(duration: 500.ms)
-                                        .slideY(
-                                          duration: 500.ms,
-                                          begin: 0.3,
-                                        )
-                                    : Text('')
-                                : Text(''),
-                          ],
-                        ),
-                      )
-                    // if (isClickPredict)
+                      ),
+                    //   Container(
+                    //     padding: EdgeInsets.all(10),
+                    //     margin: EdgeInsets.all(10),
+                    //     decoration: BoxDecoration(
+                    //       color: Colors.white,
+                    //       borderRadius: BorderRadius.circular(10),
+                    //       boxShadow: [
+                    //         BoxShadow(
+                    //           offset: Offset(2, 3),
+                    //           blurRadius: 20,
+                    //           color: color2.withOpacity(0.3),
+                    //         )
+                    //       ],
+                    //     ),
+                    //     child: Column(
+                    //       children: [
+                    //         (isClickPredict && result == "")
+                    //             ? Row(
+                    //                 mainAxisAlignment: MainAxisAlignment.center,
+                    //                 children: [
+                    //                   Container(
+                    //                     height: 20,
+                    //                     width: 20,
+                    //                     child: CircularProgressIndicator(
+                    //                       strokeWidth: 2,
+                    //                       color: Colors.black,
+                    //                     ),
+                    //                   ),
+                    //                   Gap(10),
+                    //                   Text(
+                    //                     'Analysing & predicting...',
+                    //                     style: TextStyle(
+                    //                         fontSize: 13.0, fontFamily: 'geb'),
+                    //                   ),
+                    //                 ],
+                    //               )
+                    //                 .animate(delay: 200.ms)
+                    //                 .fadeIn(duration: 500.ms)
+                    //                 .slideY(
+                    //                   duration: 500.ms,
+                    //                   begin: 0.3,
+                    //                 )
+                    //             : (result != "")
+                    //                 ? Row(
+                    //                     mainAxisAlignment:
+                    //                         MainAxisAlignment.center,
+                    //                     children: [
+                    //                       Icon(
+                    //                         Remix.check_double_fill,
+                    //                         color: Colors.green,
+                    //                       ),
+                    //                       Gap(10),
+                    //                       Text(
+                    //                         'Analysing & predicting...',
+                    //                         style: TextStyle(
+                    //                             fontSize: 13.0,
+                    //                             fontFamily: 'geb'),
+                    //                       ),
+                    //                     ],
+                    //                   )
+                    //                     .animate(delay: 200.ms)
+                    //                     .fadeIn(duration: 500.ms)
+                    //                     .slideY(
+                    //                       duration: 500.ms,
+                    //                       begin: 0.3,
+                    //                     )
+                    //                 : Text(""),
+                    //         Gap(10),
+                    //         (isUploading)
+                    //             ? (progress != null)
+                    //                 ? Column(
+                    //                     children: [
+                    //                       Gap(5),
+                    //                       Container(
+                    //                         width: MediaQuery.of(context)
+                    //                                 .size
+                    //                                 .width *
+                    //                             0.60,
+                    //                         child: LinearProgressIndicator(
+                    //                           value: progress,
+                    //                           minHeight: 2.0,
+                    //                           color: Colors.red,
+                    //                         ),
+                    //                       ),
+                    //                       Gap(5),
+                    //                       Text(
+                    //                         "Sending results to database...($progress%)",
+                    //                         style: TextStyle(
+                    //                             fontSize: 13.0,
+                    //                             fontFamily: 'geb'),
+                    //                       ),
+                    //                       Gap(10)
+                    //                     ],
+                    //                   )
+                    //                     .animate(delay: 200.ms)
+                    //                     .fadeIn(duration: 500.ms)
+                    //                     .slideY(
+                    //                       duration: 500.ms,
+                    //                       begin: 0.3,
+                    //                     )
+                    //                 : Text('')
+                    //             : Text(''),
+                    //       ],
+                    //     ),
+                    //   )
+                    // // if (isClickPredict)
                     //   SizedBox(
                     //     height: 20,
                     //   ),

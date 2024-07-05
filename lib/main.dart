@@ -92,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Profile(),
   ];
 
-  final List<String> titles = ["", "Test", "Reports", "Profile"];
+  final List<String> titles = ["", "Test", "Profile"];
 
   var currentIndex = 0;
 
