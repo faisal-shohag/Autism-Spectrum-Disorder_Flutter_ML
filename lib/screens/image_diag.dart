@@ -310,6 +310,7 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                         ],
                       ),
                       Gap(10),
+                      //based on non autistic
                       Text(
                         'Status: ${(prob[1] * 100).toInt() > 69 ? 'Safe' : (prob[1] * 100).toInt() > 59 ? 'Moderate' : 'Severe'}',
                         style: TextStyle(
@@ -342,43 +343,43 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                                 ),
                               ),
                       ),
-                      Gap(10),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 20,
-                          right: 20,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              child: IconMenuItem(
-                                imageURL:
-                                    'https://i.postimg.cc/66gLgy3K/3306613.png',
-                                title: 'About Result',
-                              ),
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => OurSelf(
-                                        title: 'About the result', index: 2)));
-                              },
-                            ),
-                            Gap(30),
-                            GestureDetector(
-                              child: IconMenuItem(
-                                imageURL:
-                                    'https://i.postimg.cc/c13TR4rk/2059784.png',
-                                title: 'Data Policy',
-                              ),
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => OurSelf(
-                                        title: 'Data Policy', index: 1)));
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Gap(10),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(
+                      //     left: 20,
+                      //     right: 20,
+                      //   ),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: [
+                      //       GestureDetector(
+                      //         child: IconMenuItem(
+                      //           imageURL:
+                      //               'https://i.postimg.cc/66gLgy3K/3306613.png',
+                      //           title: 'About Result',
+                      //         ),
+                      //         onTap: () {
+                      //           Navigator.of(context).push(MaterialPageRoute(
+                      //               builder: (context) => OurSelf(
+                      //                   title: 'About the result', index: 2)));
+                      //         },
+                      //       ),
+                      //       Gap(30),
+                      //       GestureDetector(
+                      //         child: IconMenuItem(
+                      //           imageURL:
+                      //               'https://i.postimg.cc/c13TR4rk/2059784.png',
+                      //           title: 'Data Policy',
+                      //         ),
+                      //         onTap: () {
+                      //           Navigator.of(context).push(MaterialPageRoute(
+                      //               builder: (context) => OurSelf(
+                      //                   title: 'Data Policy', index: 1)));
+                      //         },
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       Gap(20),
                       GestureDetector(
                         onTap: () {
