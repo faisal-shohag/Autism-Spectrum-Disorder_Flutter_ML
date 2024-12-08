@@ -111,7 +111,7 @@ class AuthCheck extends StatelessWidget {
                     );
                   }
 
-                  if (userData["join_as"] == "parent") {
+                  if (userData["join_as"] == "") {
                     return MyHomePage();
                   }
                   print("JOIN AS: ${userData['join_as']}");
