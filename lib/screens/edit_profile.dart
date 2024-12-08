@@ -152,29 +152,25 @@ class _InfoEditState extends State<InfoEdit> {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 20,
+                    SizedBox(height: 20),
+                    Center(
+                      child: Image.asset(
+                        'assets/images/ribbon.png',
+                        height: 120,
+                      ),
                     ),
-                    Image.asset(
-                      'assets/images/ribbon.png',
-                      height: 120,
+                    SizedBox(height: 30),
+                    Center(
+                      child: Text(
+                        'Provide your information',
+                        style: TextStyle(fontSize: 20, fontFamily: 'geb'),
+                      ),
                     ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      'Provide your information',
-                      style: TextStyle(fontSize: 20, fontFamily: 'geb'),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    MenuTtitle(title: 'Account Info'),
-                    Text(
-                      'Email',
-                      textAlign: TextAlign.left,
-                    ),
+                    SizedBox(height: 30),
+                    Center(child: MenuTtitle(title: 'Account Info')),
+                    _buildLabel('Email'),
                     InputTextField(
                       readOnly: false,
                       obscureText: false,
@@ -182,17 +178,9 @@ class _InfoEditState extends State<InfoEdit> {
                       controller: email,
                       keyboardType: TextInputType.emailAddress,
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    MenuTtitle(title: 'Child Info'),
-                    Text(
-                      'Child Name',
-                      textAlign: TextAlign.left,
-                    ),
+                    SizedBox(height: 10),
+                    Center(child: MenuTtitle(title: 'Child Info')),
+                    _buildLabel('Child Name'),
                     InputTextField(
                       readOnly: false,
                       obscureText: false,
@@ -200,13 +188,8 @@ class _InfoEditState extends State<InfoEdit> {
                       controller: displayName,
                       keyboardType: TextInputType.text,
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      'Date of Birth',
-                      textAlign: TextAlign.left,
-                    ),
+                    SizedBox(height: 10),
+                    _buildLabel('Date of Birth'),
                     TextField(
                       controller: dateOfBirth,
                       readOnly: true,
@@ -236,25 +219,17 @@ class _InfoEditState extends State<InfoEdit> {
                           lastDate: DateTime(2101),
                         );
 
-                        print("pickeddate:" + pickedDate.toString());
                         if (pickedDate != null) {
-                          debugPrint(pickedDate.toString());
-
                           String formattedDate =
                               DateFormat('yyyy-MM-dd').format(pickedDate);
-                          debugPrint(formattedDate);
-                          // setState(() {
                           dateOfBirth.text = formattedDate.toString();
-                          // });
-                          print("controller: " + dateOfBirth.text);
                         } else {
                           debugPrint("Date is not selected");
                         }
                       },
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
+                    _buildLabel('Child Education (Class/Graduation)'),
                     InputTextField(
                       readOnly: false,
                       obscureText: false,
@@ -262,9 +237,8 @@ class _InfoEditState extends State<InfoEdit> {
                       controller: childGrade,
                       keyboardType: TextInputType.text,
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
+                    _buildLabel('Child Height (in cm)'),
                     InputTextField(
                       readOnly: false,
                       obscureText: false,
@@ -272,9 +246,8 @@ class _InfoEditState extends State<InfoEdit> {
                       controller: height,
                       keyboardType: TextInputType.number,
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
+                    _buildLabel('Gender'),
                     InputTextField(
                       readOnly: false,
                       obscureText: false,
@@ -282,9 +255,8 @@ class _InfoEditState extends State<InfoEdit> {
                       controller: gender,
                       keyboardType: TextInputType.text,
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
+                    _buildLabel('Child Weight (in Kg)'),
                     InputTextField(
                       readOnly: false,
                       obscureText: false,
@@ -292,10 +264,9 @@ class _InfoEditState extends State<InfoEdit> {
                       controller: weight,
                       keyboardType: TextInputType.number,
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    MenuTtitle(title: 'Guardian Info'),
+                    SizedBox(height: 10),
+                    Center(child: MenuTtitle(title: 'Guardian Info')),
+                    _buildLabel('Guardian Name'),
                     InputTextField(
                       readOnly: false,
                       obscureText: false,
@@ -303,9 +274,8 @@ class _InfoEditState extends State<InfoEdit> {
                       controller: guardian,
                       keyboardType: TextInputType.text,
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
+                    _buildLabel('Guardian Phone'),
                     InputTextField(
                       readOnly: false,
                       obscureText: false,
@@ -313,9 +283,8 @@ class _InfoEditState extends State<InfoEdit> {
                       controller: phoneNumber,
                       keyboardType: TextInputType.number,
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
+                    _buildLabel('Relation with Child'),
                     InputTextField(
                       readOnly: false,
                       obscureText: false,
@@ -323,16 +292,9 @@ class _InfoEditState extends State<InfoEdit> {
                       controller: relationWith,
                       keyboardType: TextInputType.text,
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
                     (isClick) ? CircularProgressIndicator() : Text(''),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
                     GestureDetector(
                       onTap: () {
                         if (formCheck() != "") {
@@ -341,7 +303,6 @@ class _InfoEditState extends State<InfoEdit> {
                           setState(() {
                             isClick = true;
                           });
-                          print(dateOfBirth);
                           addData(
                             user!.uid,
                             email.text.trim(),
@@ -363,14 +324,27 @@ class _InfoEditState extends State<InfoEdit> {
                         buttonColor: Color.fromARGB(255, 221, 56, 56),
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
                   ],
                 ),
               ),
             ),
           );
         });
+  }
+
+  // Helper method to create left-aligned labels
+  Widget _buildLabel(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 5.0),
+      child: Text(
+        text,
+        textAlign: TextAlign.left,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 14,
+        ),
+      ),
+    );
   }
 }
