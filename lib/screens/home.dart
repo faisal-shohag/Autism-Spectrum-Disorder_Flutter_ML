@@ -221,6 +221,13 @@ class _HomeTabState extends State<HomeTab> {
               scrollDirection: Axis.horizontal,
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Courtesy: Proyash Rangpur',
+              style: TextStyle(fontSize: 10, fontFamily: 'geb'),
+            ),
+          ),
           Gap(20),
           if ((userData["info"] == true))
             // GestureDetector(
@@ -366,78 +373,78 @@ class _HomeTabState extends State<HomeTab> {
             //   ],
             // ),
 
+            // MenuTtitle(
+            //   title: 'Ourself',
+            // ).animate(delay: 100.ms).fadeIn(duration: 500.ms).slideY(
+            //       duration: 500.ms,
+            //       begin: 0.3,
+            //     ),
+            // Padding(
+            //   padding: const EdgeInsets.only(
+            //     left: 20,
+            //     right: 20,
+            //   ),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       GestureDetector(
+            //         child: IconMenuItem(
+            //           imageURL: 'https://i.postimg.cc/xCQBKtws/2390191.png',
+            //           title: 'Our Vision',
+            //         ),
+            //         onTap: () {
+            //           Navigator.of(context).push(MaterialPageRoute(
+            //               builder: (context) =>
+            //                   OurSelf(title: 'Our Vision', index: 0)));
+            //         },
+            //       ),
+            //       GestureDetector(
+            //         child: IconMenuItem(
+            //           imageURL: 'https://i.postimg.cc/Qxg9mtK0/1055661.png',
+            //           title: 'Publications',
+            //         ),
+            //         onTap: () {
+            //           Navigator.of(context).push(MaterialPageRoute(
+            //               builder: (context) => pdfView(
+            //                   title: 'Publications',
+            //                   source:
+            //                       'https://firebasestorage.googleapis.com/v0/b/asd-ml.appspot.com/o/proof_copy.pdf?alt=media&token=58f12f07-1421-44b1-8648-ab0c4b086f40')));
+            //         },
+            //       ),
+            //       GestureDetector(
+            //         child: IconMenuItem(
+            //           imageURL: 'https://i.postimg.cc/c13TR4rk/2059784.png',
+            //           title: 'Data Policy',
+            //         ),
+            //         onTap: () {
+            //           Navigator.of(context).push(MaterialPageRoute(
+            //               builder: (context) =>
+            //                   OurSelf(title: 'Data Policy', index: 1)));
+            //         },
+            //       ),
+            //       GestureDetector(
+            //         child: IconMenuItem(
+            //           imageURL: 'https://i.postimg.cc/66gLgy3K/3306613.png',
+            //           title: 'About Us',
+            //         ),
+            //         onTap: () {
+            //           // Navigator.of(context).push(MaterialPageRoute(
+            //           //     builder: (context) =>
+            //           //         OurSelf(title: 'Our Vision', index: 0)));
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
+
+            // Gap(10),
+
             MenuTtitle(
-              title: 'Ourself',
+              title: 'Autism at a glance',
             ).animate(delay: 100.ms).fadeIn(duration: 500.ms).slideY(
                   duration: 500.ms,
                   begin: 0.3,
                 ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 20,
-              right: 20,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  child: IconMenuItem(
-                    imageURL: 'https://i.postimg.cc/xCQBKtws/2390191.png',
-                    title: 'Our Vision',
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            OurSelf(title: 'Our Vision', index: 0)));
-                  },
-                ),
-                GestureDetector(
-                  child: IconMenuItem(
-                    imageURL: 'https://i.postimg.cc/Qxg9mtK0/1055661.png',
-                    title: 'Publications',
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => pdfView(
-                            title: 'Publications',
-                            source:
-                                'https://firebasestorage.googleapis.com/v0/b/asd-ml.appspot.com/o/proof_copy.pdf?alt=media&token=58f12f07-1421-44b1-8648-ab0c4b086f40')));
-                  },
-                ),
-                GestureDetector(
-                  child: IconMenuItem(
-                    imageURL: 'https://i.postimg.cc/c13TR4rk/2059784.png',
-                    title: 'Data Policy',
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            OurSelf(title: 'Data Policy', index: 1)));
-                  },
-                ),
-                GestureDetector(
-                  child: IconMenuItem(
-                    imageURL: 'https://i.postimg.cc/66gLgy3K/3306613.png',
-                    title: 'About Us',
-                  ),
-                  onTap: () {
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (context) =>
-                    //         OurSelf(title: 'Our Vision', index: 0)));
-                  },
-                ),
-              ],
-            ),
-          ),
-
-          Gap(10),
-
-          MenuTtitle(
-            title: 'Autism at a glance',
-          ).animate(delay: 100.ms).fadeIn(duration: 500.ms).slideY(
-                duration: 500.ms,
-                begin: 0.3,
-              ),
 
           Container(
             height: 220,
@@ -797,6 +804,8 @@ class LongMenuCard extends StatelessWidget {
           Text(
             title,
             textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
             style: TextStyle(
               fontFamily: 'geb',
               fontSize: 20,
