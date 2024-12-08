@@ -1,8 +1,10 @@
 import 'package:asd/components/button.dart';
+import 'package:asd/components/iconMenuItem.dart';
 import 'package:asd/components/menutitle.dart';
 import 'package:asd/const/detailsData.dart';
 import 'package:asd/screens/blogDetails.dart';
 import 'package:asd/screens/info.dart';
+import 'package:asd/screens/ourself.dart';
 import 'package:asd/screens/pdf_view.dart';
 import 'package:asd/screens/profile.dart';
 import 'package:asd/services/userinfo.dart';
@@ -115,7 +117,7 @@ class _HomeTabState extends State<HomeTab> {
                                   : CircleAvatar(
                                       radius: 20,
                                       backgroundImage:
-                                          AssetImage('assets/boy.png'),
+                                          AssetImage('assets/images/boy.png'),
                                     ),
                             ),
                           ),
@@ -364,71 +366,71 @@ class _HomeTabState extends State<HomeTab> {
             //   ],
             // ),
 
-            // MenuTtitle(
-            //   title: 'Ourself',
-            // ).animate(delay: 100.ms).fadeIn(duration: 500.ms).slideY(
-            //       duration: 500.ms,
-            //       begin: 0.3,
-            //     ),
-            // Padding(
-            //   padding: const EdgeInsets.only(
-            //     left: 20,
-            //     right: 20,
-            //   ),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       GestureDetector(
-            //         child: IconMenuItem(
-            //           imageURL: 'https://i.postimg.cc/xCQBKtws/2390191.png',
-            //           title: 'Our Vision',
-            //         ),
-            //         onTap: () {
-            //           Navigator.of(context).push(MaterialPageRoute(
-            //               builder: (context) =>
-            //                   OurSelf(title: 'Our Vision', index: 0)));
-            //         },
-            //       ),
-            //       GestureDetector(
-            //         child: IconMenuItem(
-            //           imageURL: 'https://i.postimg.cc/Qxg9mtK0/1055661.png',
-            //           title: 'Publications',
-            //         ),
-            //         onTap: () {
-            //           Navigator.of(context).push(MaterialPageRoute(
-            //               builder: (context) => pdfView(
-            //                   title: 'Publications',
-            //                   source:
-            //                       'https://firebasestorage.googleapis.com/v0/b/asd-ml.appspot.com/o/proof_copy.pdf?alt=media&token=58f12f07-1421-44b1-8648-ab0c4b086f40')));
-            //         },
-            //       ),
-            //       GestureDetector(
-            //         child: IconMenuItem(
-            //           imageURL: 'https://i.postimg.cc/c13TR4rk/2059784.png',
-            //           title: 'Data Policy',
-            //         ),
-            //         onTap: () {
-            //           Navigator.of(context).push(MaterialPageRoute(
-            //               builder: (context) =>
-            //                   OurSelf(title: 'Data Policy', index: 1)));
-            //         },
-            //       ),
-            //       GestureDetector(
-            //         child: IconMenuItem(
-            //           imageURL: 'https://i.postimg.cc/66gLgy3K/3306613.png',
-            //           title: 'About Us',
-            //         ),
-            //         onTap: () {
-            //           // Navigator.of(context).push(MaterialPageRoute(
-            //           //     builder: (context) =>
-            //           //         OurSelf(title: 'Our Vision', index: 0)));
-            //         },
-            //       ),
-            //     ],
-            //   ),
-            // ),
+            MenuTtitle(
+              title: 'Ourself',
+            ).animate(delay: 100.ms).fadeIn(duration: 500.ms).slideY(
+                  duration: 500.ms,
+                  begin: 0.3,
+                ),
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 20,
+              right: 20,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  child: IconMenuItem(
+                    imageURL: 'https://i.postimg.cc/xCQBKtws/2390191.png',
+                    title: 'Our Vision',
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            OurSelf(title: 'Our Vision', index: 0)));
+                  },
+                ),
+                GestureDetector(
+                  child: IconMenuItem(
+                    imageURL: 'https://i.postimg.cc/Qxg9mtK0/1055661.png',
+                    title: 'Publications',
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => pdfView(
+                            title: 'Publications',
+                            source:
+                                'https://firebasestorage.googleapis.com/v0/b/asd-ml.appspot.com/o/proof_copy.pdf?alt=media&token=58f12f07-1421-44b1-8648-ab0c4b086f40')));
+                  },
+                ),
+                GestureDetector(
+                  child: IconMenuItem(
+                    imageURL: 'https://i.postimg.cc/c13TR4rk/2059784.png',
+                    title: 'Data Policy',
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            OurSelf(title: 'Data Policy', index: 1)));
+                  },
+                ),
+                GestureDetector(
+                  child: IconMenuItem(
+                    imageURL: 'https://i.postimg.cc/66gLgy3K/3306613.png',
+                    title: 'About Us',
+                  ),
+                  onTap: () {
+                    // Navigator.of(context).push(MaterialPageRoute(
+                    //     builder: (context) =>
+                    //         OurSelf(title: 'Our Vision', index: 0)));
+                  },
+                ),
+              ],
+            ),
+          ),
 
-            Gap(10),
+          Gap(10),
 
           MenuTtitle(
             title: 'Autism at a glance',

@@ -6,19 +6,10 @@ import 'package:asd/components/menutitle.dart';
 import 'package:asd/components/snackBars.dart';
 import 'package:asd/const/RegEx.dart';
 import 'package:asd/main.dart';
-// import 'package:asd/main.dart';
-// import 'package:asd/const/color.dart';
 import 'package:asd/models/user.dart';
-// import 'package:asd/screens/home.dart';
-// import 'package:asd/const/color.dart';
-// import 'package:asd/main.dart';
-// import 'package:asd/screens/login.dart';
-// import 'package:asd/services/authmiddle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-// import 'package:flutter/scheduler.dart';
-// import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -75,12 +66,13 @@ class _SignUpPageState extends State<InfoPage> {
       gender: gender,
       info: true,
     );
-    FirebaseAuth.instance.currentUser!.updateDisplayName(displayName);
+
     try {
       await FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
           .update(data.toJson());
+      FirebaseAuth.instance.currentUser!.updateDisplayName(data.displayName);
 
       setState(() {
         isClick = false;

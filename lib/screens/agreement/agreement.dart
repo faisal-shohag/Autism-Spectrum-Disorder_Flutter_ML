@@ -17,72 +17,95 @@ class _AgreementState extends State<Agreement> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Color.fromARGB(255, 29, 29, 29),
       body: Stack(
+        fit: StackFit.expand,
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 20, 18, 37),
-            ),
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Gap(100),
-                Image.asset(
-                  'assets/images/ribbon.png',
-                  height: 60,
-                )
-                    .animate()
-                    .fadeIn(duration: 500.ms)
-                    .slideY(
-                      duration: 500.ms,
-                      begin: 0.2,
-                    )
-                    .shimmer(duration: 2000.ms),
-                Gap(5),
-                Text(
-                  "AI Autism Detection",
-                  style: TextStyle(
-                    fontFamily: 'geb',
-                    fontSize: 20,
-                    color: Colors.white,
-                  ),
-                )
-                    .animate()
-                    .fadeIn(
-                      duration: 500.ms,
-                    )
-                    .slideY(
-                      duration: 500.ms,
-                      begin: 0.3,
-                    ),
-                // Gap(5),
-                Text(
-                  "First AI based Autism Detection App in Bangladesh!",
-                  style: TextStyle(
-                      fontFamily: 'gsb', fontSize: 13, color: Colors.white),
-                )
-                    .animate()
-                    .fadeIn(
-                      duration: 500.ms,
-                    )
-                    .slideY(
-                      duration: 500.ms,
-                      begin: 0.4,
-                    ),
-              ],
-            ),
+          // Full background image
+          Image.network(
+            'https://i.postimg.cc/pdFgwRzH/image.png',
+            fit: BoxFit.cover,
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) return child;
+              return Center(
+                child: CircularProgressIndicator(
+                  value: loadingProgress.expectedTotalBytes != null
+                      ? loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes!
+                      : null,
+                ),
+              );
+            },
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                color: Color.fromARGB(255, 20, 18, 37),
+                child: Center(
+                  child: Icon(Icons.error, color: Colors.red, size: 50),
+                ),
+              );
+            },
           ),
+
+          // Semi-transparent overlay
+          Container(
+            color: Colors.black.withOpacity(0.6),
+          ),
+
+          // Existing content
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Gap(100),
+              Image.asset(
+                'assets/images/ribbon.png',
+                height: 60,
+              )
+                  .animate()
+                  .fadeIn(duration: 500.ms)
+                  .slideY(
+                    duration: 500.ms,
+                    begin: 0.2,
+                  )
+                  .shimmer(duration: 2000.ms),
+              Gap(5),
+              Text(
+                "BRUR ASD",
+                style: TextStyle(
+                  fontFamily: 'geb',
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              )
+                  .animate()
+                  .fadeIn(
+                    duration: 500.ms,
+                  )
+                  .slideY(
+                    duration: 500.ms,
+                    begin: 0.3,
+                  ),
+              Text(
+                "First AI based Autism Detection App in Bangladesh!",
+                style: TextStyle(
+                    fontFamily: 'gsb', fontSize: 13, color: Colors.white),
+              )
+                  .animate()
+                  .fadeIn(
+                    duration: 500.ms,
+                  )
+                  .slideY(
+                    duration: 500.ms,
+                    begin: 0.4,
+                  ),
+            ],
+          ),
+
+          // Bottom Sheet
           Positioned(
-            height: MediaQuery.of(context).size.height / 2.5,
+            height: MediaQuery.of(context).size.height / 3.2,
             width: MediaQuery.of(context).size.width,
             bottom: 0,
             child: Container(
               padding: EdgeInsets.all(20),
-              height: MediaQuery.of(context).size.height / 2.5,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(

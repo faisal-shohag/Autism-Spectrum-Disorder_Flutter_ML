@@ -156,9 +156,10 @@ class _MyHomePageState extends State<MyHomePage> {
         child: BottomNavigationBar(
           onTap: (index) {
             var user = FirebaseAuth.instance.currentUser!;
+            // print(user);
 
             if ((user.displayName == null || user.displayName == "") &&
-                (index == 1 || index == 2)) {
+                (index == 1)) {
               WarningSnackBar(
                   context, 'Please complete your profile to use this feature!');
             } else {

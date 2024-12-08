@@ -109,6 +109,7 @@ class _SignUpPageState extends State<SignUpPage> {
           .collection('users')
           .doc(uid)
           .set(data.toJson());
+      FirebaseAuth.instance.currentUser!.updateDisplayName(data.displayName);
 
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => AuthCheck()));
