@@ -86,6 +86,7 @@ class _AgreementState extends State<Agreement> {
               Center(
                 child: Text(
                   "First AI-based Autism Detection & Evaluation App in Bangladesh!",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                       fontFamily: 'gsb', fontSize: 13, color: Colors.blue),
                 )
