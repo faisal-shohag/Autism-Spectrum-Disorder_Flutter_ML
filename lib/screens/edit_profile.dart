@@ -147,216 +147,226 @@ class _InfoEditState extends State<InfoEdit> {
 
           return Scaffold(
             backgroundColor: Colors.grey[300],
-            body: Center(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Image.asset(
-                        'assets/images/ribbon.png',
-                        height: 120,
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Text(
-                        'Provide your information',
-                        style: TextStyle(fontSize: 20, fontFamily: 'geb'),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      MenuTtitle(title: 'Account Info'),
-                      InputTextField(
-                        readOnly: false,
-                        obscureText: false,
-                        hintText: 'Email',
-                        controller: email,
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      MenuTtitle(title: 'Child Info'),
-                      InputTextField(
-                        readOnly: false,
-                        obscureText: false,
-                        hintText: 'Child Name(This name will be displayed.)',
-                        controller: displayName,
-                        keyboardType: TextInputType.text,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TextField(
-                        controller: dateOfBirth,
-                        readOnly: true,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 20),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                          hintText: 'Birthdate',
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide:
-                                BorderSide(color: color2.withOpacity(0.3)),
-                            gapPadding: 0,
-                          ),
-                          filled: true,
-                          fillColor: Colors.grey[200],
+            body: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Image.asset(
+                      'assets/images/ribbon.png',
+                      height: 120,
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      'Provide your information',
+                      style: TextStyle(fontSize: 20, fontFamily: 'geb'),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    MenuTtitle(title: 'Account Info'),
+                    Text(
+                      'Email',
+                      textAlign: TextAlign.left,
+                    ),
+                    InputTextField(
+                      readOnly: false,
+                      obscureText: false,
+                      hintText: 'Email',
+                      controller: email,
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    MenuTtitle(title: 'Child Info'),
+                    Text(
+                      'Child Name',
+                      textAlign: TextAlign.left,
+                    ),
+                    InputTextField(
+                      readOnly: false,
+                      obscureText: false,
+                      hintText: 'Child Name(This name will be displayed.)',
+                      controller: displayName,
+                      keyboardType: TextInputType.text,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'Date of Birth',
+                      textAlign: TextAlign.left,
+                    ),
+                    TextField(
+                      controller: dateOfBirth,
+                      readOnly: true,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(left: 20),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.white),
                         ),
-                        keyboardType: TextInputType.datetime,
-                        onTap: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1990),
-                            lastDate: DateTime(2101),
+                        hintText: 'Birthdate',
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide:
+                              BorderSide(color: color2.withOpacity(0.3)),
+                          gapPadding: 0,
+                        ),
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                      ),
+                      keyboardType: TextInputType.datetime,
+                      onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1990),
+                          lastDate: DateTime(2101),
+                        );
+
+                        print("pickeddate:" + pickedDate.toString());
+                        if (pickedDate != null) {
+                          debugPrint(pickedDate.toString());
+
+                          String formattedDate =
+                              DateFormat('yyyy-MM-dd').format(pickedDate);
+                          debugPrint(formattedDate);
+                          // setState(() {
+                          dateOfBirth.text = formattedDate.toString();
+                          // });
+                          print("controller: " + dateOfBirth.text);
+                        } else {
+                          debugPrint("Date is not selected");
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    InputTextField(
+                      readOnly: false,
+                      obscureText: false,
+                      hintText: 'Child Education(Class/Graduation)',
+                      controller: childGrade,
+                      keyboardType: TextInputType.text,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    InputTextField(
+                      readOnly: false,
+                      obscureText: false,
+                      hintText: 'Child Height(in cm)',
+                      controller: height,
+                      keyboardType: TextInputType.number,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    InputTextField(
+                      readOnly: false,
+                      obscureText: false,
+                      hintText: 'Gender',
+                      controller: gender,
+                      keyboardType: TextInputType.text,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    InputTextField(
+                      readOnly: false,
+                      obscureText: false,
+                      hintText: 'Child weight(in Kg)',
+                      controller: weight,
+                      keyboardType: TextInputType.number,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    MenuTtitle(title: 'Guardian Info'),
+                    InputTextField(
+                      readOnly: false,
+                      obscureText: false,
+                      hintText: 'Guardian name',
+                      controller: guardian,
+                      keyboardType: TextInputType.text,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    InputTextField(
+                      readOnly: false,
+                      obscureText: false,
+                      hintText: 'Guardian Phone',
+                      controller: phoneNumber,
+                      keyboardType: TextInputType.number,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    InputTextField(
+                      readOnly: false,
+                      obscureText: false,
+                      hintText: 'Relation with child?',
+                      controller: relationWith,
+                      keyboardType: TextInputType.text,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    (isClick) ? CircularProgressIndicator() : Text(''),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        if (formCheck() != "") {
+                          ErrorSnackBar(context, formCheck());
+                        } else {
+                          setState(() {
+                            isClick = true;
+                          });
+                          print(dateOfBirth);
+                          addData(
+                            user!.uid,
+                            email.text.trim(),
+                            guardian.text.trim(),
+                            relationWith.text.trim(),
+                            dateOfBirth.text.trim(),
+                            childGrade.text.trim(),
+                            "",
+                            displayName.text.trim(),
+                            phoneNumber.text.trim(),
+                            height.text.trim(),
+                            weight.text.trim(),
+                            gender.text.trim(),
                           );
-
-                          print("pickeddate:" + pickedDate.toString());
-                          if (pickedDate != null) {
-                            debugPrint(pickedDate.toString());
-
-                            String formattedDate =
-                                DateFormat('yyyy-MM-dd').format(pickedDate);
-                            debugPrint(formattedDate);
-                            // setState(() {
-                            dateOfBirth.text = formattedDate.toString();
-                            // });
-                            print("controller: " + dateOfBirth.text);
-                          } else {
-                            debugPrint("Date is not selected");
-                          }
-                        },
+                        }
+                      },
+                      child: FullButton(
+                        buttonText: 'Save',
+                        buttonColor: Color.fromARGB(255, 221, 56, 56),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      InputTextField(
-                        readOnly: false,
-                        obscureText: false,
-                        hintText: 'Child Education(Class/Graduation)',
-                        controller: childGrade,
-                        keyboardType: TextInputType.text,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      InputTextField(
-                        readOnly: false,
-                        obscureText: false,
-                        hintText: 'Child Height(in cm)',
-                        controller: height,
-                        keyboardType: TextInputType.number,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      InputTextField(
-                        readOnly: false,
-                        obscureText: false,
-                        hintText: 'Gender',
-                        controller: gender,
-                        keyboardType: TextInputType.text,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      InputTextField(
-                        readOnly: false,
-                        obscureText: false,
-                        hintText: 'Child weight(in Kg)',
-                        controller: weight,
-                        keyboardType: TextInputType.number,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      MenuTtitle(title: 'Guardian Info'),
-                      InputTextField(
-                        readOnly: false,
-                        obscureText: false,
-                        hintText: 'Guardian name',
-                        controller: guardian,
-                        keyboardType: TextInputType.text,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      InputTextField(
-                        readOnly: false,
-                        obscureText: false,
-                        hintText: 'Guardian Phone',
-                        controller: phoneNumber,
-                        keyboardType: TextInputType.number,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      InputTextField(
-                        readOnly: false,
-                        obscureText: false,
-                        hintText: 'Relation with child?',
-                        controller: relationWith,
-                        keyboardType: TextInputType.text,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      (isClick) ? CircularProgressIndicator() : Text(''),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          if (formCheck() != "") {
-                            ErrorSnackBar(context, formCheck());
-                          } else {
-                            setState(() {
-                              isClick = true;
-                            });
-                            print(dateOfBirth);
-                            addData(
-                              user!.uid,
-                              email.text.trim(),
-                              guardian.text.trim(),
-                              relationWith.text.trim(),
-                              dateOfBirth.text.trim(),
-                              childGrade.text.trim(),
-                              "",
-                              displayName.text.trim(),
-                              phoneNumber.text.trim(),
-                              height.text.trim(),
-                              weight.text.trim(),
-                              gender.text.trim(),
-                            );
-                          }
-                        },
-                        child: FullButton(
-                          buttonText: 'Save',
-                          buttonColor: Color.fromARGB(255, 221, 56, 56),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ],
                 ),
               ),
             ),

@@ -1,10 +1,10 @@
 import 'package:asd/components/button.dart';
-import 'package:asd/components/iconMenuItem.dart';
+// import 'package:asd/components/iconMenuItem.dart';
 import 'package:asd/components/menutitle.dart';
 import 'package:asd/const/detailsData.dart';
 import 'package:asd/screens/blogDetails.dart';
 import 'package:asd/screens/info.dart';
-import 'package:asd/screens/ourself.dart';
+// import 'package:asd/screens/ourself.dart';
 import 'package:asd/screens/pdf_view.dart';
 import 'package:asd/screens/profile.dart';
 import 'package:asd/services/userinfo.dart';
@@ -24,9 +24,9 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   final List<String> imgList = [
-    'https://proyash.edu.bd/proyash/storage/img/homeSections/service/mx9jLzYjDL4yovlLIAx0TFcfkHHOklaVfaCToGC3.jpg',
-    'https://proyash.edu.bd/proyash/storage/uploads/sAB70tQGwIPF6xuxqo2ZKqfrZ3SDtChkzNhSXJxd.jpg',
-    'https://proyash.edu.bd/proyash/storage/img/homeSections/service/tB6jqNOeiYMvKMVIvktaXRQLRAbYD1vJr49mrH2D.jpg'
+    'https://i.postimg.cc/7YFKccMv/image.png',
+    'https://i.postimg.cc/rFqhLbK7/image.png',
+    'https://i.postimg.cc/0yY2Jz8z/image.png'
     // 'assets/images/db3.jpg',
   ];
 
@@ -198,7 +198,7 @@ class _HomeTabState extends State<HomeTab> {
                           item,
                         ),
                         fit: BoxFit.cover,
-                        alignment: Alignment.topCenter,
+                        alignment: Alignment.center,
                       ),
                     ),
                   ),
@@ -221,7 +221,14 @@ class _HomeTabState extends State<HomeTab> {
               scrollDirection: Axis.horizontal,
             ),
           ),
-          Gap(20),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Courtesy: Proyash Rangpur',
+              style: TextStyle(fontSize: 10, fontFamily: 'geb'),
+            ),
+          ),
+          // Gap(20),
           if ((userData["info"] == true))
             // GestureDetector(
             //   onTap: () {
@@ -366,78 +373,78 @@ class _HomeTabState extends State<HomeTab> {
             //   ],
             // ),
 
+            // MenuTtitle(
+            //   title: 'Ourself',
+            // ).animate(delay: 100.ms).fadeIn(duration: 500.ms).slideY(
+            //       duration: 500.ms,
+            //       begin: 0.3,
+            //     ),
+            // Padding(
+            //   padding: const EdgeInsets.only(
+            //     left: 20,
+            //     right: 20,
+            //   ),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       GestureDetector(
+            //         child: IconMenuItem(
+            //           imageURL: 'https://i.postimg.cc/xCQBKtws/2390191.png',
+            //           title: 'Our Vision',
+            //         ),
+            //         onTap: () {
+            //           Navigator.of(context).push(MaterialPageRoute(
+            //               builder: (context) =>
+            //                   OurSelf(title: 'Our Vision', index: 0)));
+            //         },
+            //       ),
+            //       GestureDetector(
+            //         child: IconMenuItem(
+            //           imageURL: 'https://i.postimg.cc/Qxg9mtK0/1055661.png',
+            //           title: 'Publications',
+            //         ),
+            //         onTap: () {
+            //           Navigator.of(context).push(MaterialPageRoute(
+            //               builder: (context) => pdfView(
+            //                   title: 'Publications',
+            //                   source:
+            //                       'https://firebasestorage.googleapis.com/v0/b/asd-ml.appspot.com/o/proof_copy.pdf?alt=media&token=58f12f07-1421-44b1-8648-ab0c4b086f40')));
+            //         },
+            //       ),
+            //       GestureDetector(
+            //         child: IconMenuItem(
+            //           imageURL: 'https://i.postimg.cc/c13TR4rk/2059784.png',
+            //           title: 'Data Policy',
+            //         ),
+            //         onTap: () {
+            //           Navigator.of(context).push(MaterialPageRoute(
+            //               builder: (context) =>
+            //                   OurSelf(title: 'Data Policy', index: 1)));
+            //         },
+            //       ),
+            //       GestureDetector(
+            //         child: IconMenuItem(
+            //           imageURL: 'https://i.postimg.cc/66gLgy3K/3306613.png',
+            //           title: 'About Us',
+            //         ),
+            //         onTap: () {
+            //           // Navigator.of(context).push(MaterialPageRoute(
+            //           //     builder: (context) =>
+            //           //         OurSelf(title: 'Our Vision', index: 0)));
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
+
+            // Gap(10),
+
             MenuTtitle(
-              title: 'Ourself',
+              title: 'Autism at a glance',
             ).animate(delay: 100.ms).fadeIn(duration: 500.ms).slideY(
                   duration: 500.ms,
                   begin: 0.3,
                 ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 20,
-              right: 20,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  child: IconMenuItem(
-                    imageURL: 'https://i.postimg.cc/xCQBKtws/2390191.png',
-                    title: 'Our Vision',
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            OurSelf(title: 'Our Vision', index: 0)));
-                  },
-                ),
-                GestureDetector(
-                  child: IconMenuItem(
-                    imageURL: 'https://i.postimg.cc/Qxg9mtK0/1055661.png',
-                    title: 'Publications',
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => pdfView(
-                            title: 'Publications',
-                            source:
-                                'https://firebasestorage.googleapis.com/v0/b/asd-ml.appspot.com/o/proof_copy.pdf?alt=media&token=58f12f07-1421-44b1-8648-ab0c4b086f40')));
-                  },
-                ),
-                GestureDetector(
-                  child: IconMenuItem(
-                    imageURL: 'https://i.postimg.cc/c13TR4rk/2059784.png',
-                    title: 'Data Policy',
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            OurSelf(title: 'Data Policy', index: 1)));
-                  },
-                ),
-                GestureDetector(
-                  child: IconMenuItem(
-                    imageURL: 'https://i.postimg.cc/66gLgy3K/3306613.png',
-                    title: 'About Us',
-                  ),
-                  onTap: () {
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (context) =>
-                    //         OurSelf(title: 'Our Vision', index: 0)));
-                  },
-                ),
-              ],
-            ),
-          ),
-
-          Gap(10),
-
-          MenuTtitle(
-            title: 'Autism at a glance',
-          ).animate(delay: 100.ms).fadeIn(duration: 500.ms).slideY(
-                duration: 500.ms,
-                begin: 0.3,
-              ),
 
           Container(
             height: 220,
@@ -485,7 +492,7 @@ class _HomeTabState extends State<HomeTab> {
                     );
                   },
                   child: LongMenuCard(
-                    title: 'Symptoms of autism?',
+                    title: 'Symptoms of autism',
                     img: 'assets/images/autism2b.jpg',
                   ),
                 ),
@@ -522,15 +529,14 @@ class _HomeTabState extends State<HomeTab> {
                           pageData: centers,
                           author: 'Smitha Bhandari',
                           designation: 'MD',
-                          authorImg:
-                              'https://img.freepik.com/free-vector/hand-drawn-flat-design-autism-logo_23-2149372600.jpg',
+                          authorImg: 'https://i.postimg.cc/zvfMkcZL/image.png',
                         ),
                       ),
                     );
                   },
                   child: LongMenuCard(
                     title: 'Autism Care Centers',
-                    img: 'assets/images/autism4.avif',
+                    img: 'assets/images/care_center.png',
                   ),
                 ),
               ],
@@ -700,60 +706,79 @@ class SmallMenuCard extends StatelessWidget {
 }
 
 class LongMenuCard2 extends StatelessWidget {
+  /// The title to be displayed on the card
   final String title;
+
+  /// The image path for the card's background
   final String img;
+
+  /// Optional custom text style for the title
+  final TextStyle? titleStyle;
+
   const LongMenuCard2({
     super.key,
     required this.title,
     required this.img,
+    this.titleStyle,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
       width: 140,
-      margin: EdgeInsets.all(10),
-      padding: EdgeInsets.only(bottom: 10),
+      height: 200,
+      margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white60,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            offset: Offset(-1, -5),
+            offset: const Offset(-1, -5),
             blurRadius: 20,
-            color: Color.fromARGB(255, 131, 103, 231).withOpacity(0.3),
+            color: const Color.fromARGB(255, 131, 103, 231).withOpacity(0.3),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            height: 100,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(img),
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
-                )),
-          ),
-          Gap(10),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'geb',
-              fontSize: 20,
-            ),
-          ),
+          _buildImageContainer(),
+          const Gap(10),
+          _buildTitleText(),
         ],
       ),
+    );
+  }
+
+  /// Builds the image container with rounded borders
+  Widget _buildImageContainer() {
+    return Container(
+      height: 100,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(img),
+          fit: BoxFit.cover,
+        ),
+        borderRadius: BorderRadius.only(
+          bottomLeft: const Radius.circular(30),
+          bottomRight: const Radius.circular(30),
+          topLeft: const Radius.circular(10),
+          topRight: const Radius.circular(10),
+        ),
+      ),
+    );
+  }
+
+  /// Builds the title text with custom styling
+  Widget _buildTitleText() {
+    return Text(
+      title,
+      textAlign: TextAlign.center,
+      style: titleStyle ??
+          const TextStyle(
+            fontFamily: 'geb',
+            fontSize: 20,
+          ),
     );
   }
 }
@@ -797,6 +822,8 @@ class LongMenuCard extends StatelessWidget {
           Text(
             title,
             textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
             style: TextStyle(
               fontFamily: 'geb',
               fontSize: 20,
@@ -872,3 +899,6 @@ class LongMenuCard extends StatelessWidget {
 //     );
 //   }
 // }
+
+
+                      

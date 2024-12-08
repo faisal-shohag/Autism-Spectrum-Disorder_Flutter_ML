@@ -22,7 +22,7 @@ class _AgreementState extends State<Agreement> {
         children: [
           // Full background image
           Image.network(
-            'https://i.postimg.cc/pdFgwRzH/image.png',
+            'https://i.postimg.cc/TYHPXztP/image.png',
             fit: BoxFit.cover,
             loadingBuilder: (context, child, loadingProgress) {
               if (loadingProgress == null) return child;
