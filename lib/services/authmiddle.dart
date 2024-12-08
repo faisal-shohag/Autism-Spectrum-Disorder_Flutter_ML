@@ -59,7 +59,7 @@ class AuthCheck extends StatelessWidget {
                             ),
                             Gap(5),
                             Text(
-                              "AI Autism Detection",
+                              "AI for Autism",
                               style: TextStyle(
                                 fontFamily: 'geb',
                                 fontSize: 20,
@@ -68,11 +68,11 @@ class AuthCheck extends StatelessWidget {
                             ),
                             // Gap(5),
                             Text(
-                              "First AI based Autism Detection App in Bangladesh!",
+                              "First AI-based Autism Detection and Evaluation App in Bangladesh!",
                               style: TextStyle(
                                 fontFamily: 'gsb',
-                                fontSize: 13,
-                                color: Colors.white,
+                                fontSize: 18,
+                                color: Colors.blue,
                               ),
                             ),
                             Gap(50),
@@ -95,7 +95,7 @@ class AuthCheck extends StatelessWidget {
                                   ),
                                   Gap(5),
                                   Text(
-                                    'You have successfully created an account. We\'ll reach you soon! If the delay persist please contact us by admin@gmail.com',
+                                    'You have successfully created an account. We\'ll reach you soon! If the delay persist please contact us by Email:zasim.yagi@gmail.com or call 01302947535',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontFamily: 'geb',
