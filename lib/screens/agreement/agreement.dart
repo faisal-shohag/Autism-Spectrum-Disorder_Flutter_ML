@@ -83,19 +83,21 @@ class _AgreementState extends State<Agreement> {
                     duration: 500.ms,
                     begin: 0.3,
                   ),
-              Text(
-                "First AI based Autism Detection App in Bangladesh!",
-                style: TextStyle(
-                    fontFamily: 'gsb', fontSize: 13, color: Colors.white),
-              )
-                  .animate()
-                  .fadeIn(
-                    duration: 500.ms,
-                  )
-                  .slideY(
-                    duration: 500.ms,
-                    begin: 0.4,
-                  ),
+              Center(
+                child: Text(
+                  "First AI-based Autism Detection & Evaluation App in Bangladesh!",
+                  style: TextStyle(
+                      fontFamily: 'gsb', fontSize: 13, color: Colors.blue),
+                )
+                    .animate()
+                    .fadeIn(
+                      duration: 500.ms,
+                    )
+                    .slideY(
+                      duration: 500.ms,
+                      begin: 0.4,
+                    ),
+              ),
             ],
           ),
 

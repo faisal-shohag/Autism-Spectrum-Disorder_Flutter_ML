@@ -92,7 +92,7 @@ class _HomeTabState extends State<HomeTab> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            "AI Autism Detection",
+                            "AI for Autism Detection & Evaluation",
                             style: TextStyle(
                                 fontFamily: 'geb',
                                 fontSize: 21,
