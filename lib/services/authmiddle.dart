@@ -68,6 +68,7 @@ class AuthCheck extends StatelessWidget {
                             ),
                             // Gap(5),
                             Text(
+                              textAlign:TextAlign.center,
                               "First AI-based Autism Detection and Evaluation App in Bangladesh!",
                               style: TextStyle(
                                 fontFamily: 'gsb',
@@ -80,7 +81,7 @@ class AuthCheck extends StatelessWidget {
                             Container(
                               padding: EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                color: Colors.red,
+                                color: Colors.grey,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Column(
@@ -90,16 +91,16 @@ class AuthCheck extends StatelessWidget {
                                     style: TextStyle(
                                       fontFamily: 'geb',
                                       fontSize: 20,
-                                      color: Colors.white,
+                                      color: Colors.red,
                                     ),
                                   ),
                                   Gap(5),
                                   Text(
-                                    'You have successfully created an account. We\'ll reach you soon! If the delay persist please contact us by Email:zasim.yagi@gmail.com or call 01302947535',
+                                    'Your account has been successfully created! We will reach out to you shortly. If there is any delay, feel free to contact us via email at zasim@brur.ac.bd or call us at 01302947535',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontFamily: 'geb',
-                                      color: Colors.white,
+                                      color: Colors.black,
                                     ),
                                   ),
                                 ],
