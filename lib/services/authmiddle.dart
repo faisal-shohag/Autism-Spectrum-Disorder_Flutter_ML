@@ -111,6 +111,8 @@ class AuthCheck extends StatelessWidget {
                     );
                   }
 
+                  print(userData);
+
                   if (userData["join_as"] == "") {
                     return MyHomePage();
                   }
