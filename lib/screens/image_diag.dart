@@ -1,15 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:asd/components/button.dart';
 import 'package:asd/components/iconMenuItem.dart';
-import 'package:asd/components/input.dart';
-// import 'package:asd/components/scan_effect.dart';
-// import 'package:asd/components/diagnosis_form.dart';
 import 'package:asd/components/snackBars.dart';
 import 'package:asd/const/RegEx.dart';
-import 'package:asd/const/color.dart';
 import 'package:asd/screens/ourself.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,9 +12,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
-// import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:remixicon/remixicon.dart';
 
@@ -41,7 +34,7 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
   int resState = 0;
   bool isUploading = false;
   double? progress;
-  TextEditingController serverURL = TextEditingController();
+  final String serverURL = "https://living-shark-hopelessly.ngrok-free.app";
 
   // Pick image from memory
   Future<void> pickFromFile() async {
@@ -98,6 +91,8 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
           base64Image = '';
           isClickPredict = false;
           resState = 404;
+          print(response);
+          ErrorSnackBar(context, response.data);
         });
       }
     } on DioException catch (e) {
@@ -105,6 +100,7 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
         isClickPredict = false;
         result = 'No face was detected!';
         resState = 404;
+        print(e);
 
         debugPrint(e.toString());
       });
@@ -188,23 +184,8 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
     super.dispose();
   }
 
-  Future<void> getServerURL() async {
-    DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
-        await FirebaseFirestore.instance
-            .collection('Others')
-            .doc('serverURL')
-            .get();
-
-    DocumentSnapshot<Map<String, dynamic>> doc = documentSnapshot;
-    // setState(() {
-    serverURL.text = "";
-    // });
-  }
-
   @override
   void initState() {
-    //
-    getServerURL();
     super.initState();
   }
 
@@ -255,11 +236,6 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                   padding: EdgeInsets.all(0.8),
                   child: Column(
                     children: [
-                      // Gap(20),
-                      // Text(
-                      //   'Test Result',
-                      //   style: TextStyle(fontFamily: 'geb', fontSize: 21),
-                      // ),
                       Gap(15),
                       Container(
                         height: 100,
@@ -445,6 +421,7 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
               ),
             );
           }
+
           return SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Center(
@@ -455,13 +432,6 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                     if (isClickPredict == false)
                       Column(
                         children: [
-                          InputTextField(
-                            readOnly: false,
-                            obscureText: false,
-                            hintText: 'Provide server URL!',
-                            controller: serverURL,
-                            keyboardType: TextInputType.text,
-                          ),
                           Image.asset(
                             'assets/images/upload.png',
                             height: 150.0,
@@ -510,23 +480,6 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                     if (PickedImage != null)
                       SizedBox(
                         height: 150,
-                        // child: (isClickPredict)
-                        //     ? ScanningEffect(
-                        //         scanningColor: Colors.white,
-                        //         delay: Duration(seconds: 1),
-                        //         duration: Duration(seconds: 2),
-                        //         child: Container(
-                        //           height: 150,
-                        //           decoration: BoxDecoration(
-                        //             borderRadius: BorderRadius.circular(10),
-                        //             image: DecorationImage(
-                        //               image: FileImage(PickedImage as File),
-                        //               fit: BoxFit.contain,
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       )
-                        //     :
                         child: Container(
                           height: 150,
                           decoration: BoxDecoration(
@@ -574,8 +527,8 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                               if (PickedImage == null) {
                                 ErrorSnackBar(
                                     context, 'Please Pick an Image First!');
-                              } else if (serverURL.text.trim() == "" ||
-                                  !urlRegExp.hasMatch(serverURL.text)) {
+                              } else if (serverURL == "" ||
+                                  !urlRegExp.hasMatch(serverURL)) {
                                 ErrorSnackBar(context,
                                     'Please provide valid server URL!');
                               } else {
@@ -584,8 +537,7 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                                   resState = 0;
                                 });
 
-                                await Predict(
-                                    picked as XFile, serverURL.text.trim());
+                                await Predict(picked as XFile, serverURL);
                               }
                             },
                             child: (PickedImage == null)
@@ -633,142 +585,6 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                           ),
                         ),
                       ),
-                    //   Container(
-                    //     padding: EdgeInsets.all(10),
-                    //     margin: EdgeInsets.all(10),
-                    //     decoration: BoxDecoration(
-                    //       color: Colors.white,
-                    //       borderRadius: BorderRadius.circular(10),
-                    //       boxShadow: [
-                    //         BoxShadow(
-                    //           offset: Offset(2, 3),
-                    //           blurRadius: 20,
-                    //           color: color2.withOpacity(0.3),
-                    //         )
-                    //       ],
-                    //     ),
-                    //     child: Column(
-                    //       children: [
-                    //         (isClickPredict && result == "")
-                    //             ? Row(
-                    //                 mainAxisAlignment: MainAxisAlignment.center,
-                    //                 children: [
-                    //                   Container(
-                    //                     height: 20,
-                    //                     width: 20,
-                    //                     child: CircularProgressIndicator(
-                    //                       strokeWidth: 2,
-                    //                       color: Colors.black,
-                    //                     ),
-                    //                   ),
-                    //                   Gap(10),
-                    //                   Text(
-                    //                     'Analysing & predicting...',
-                    //                     style: TextStyle(
-                    //                         fontSize: 13.0, fontFamily: 'geb'),
-                    //                   ),
-                    //                 ],
-                    //               )
-                    //                 .animate(delay: 200.ms)
-                    //                 .fadeIn(duration: 500.ms)
-                    //                 .slideY(
-                    //                   duration: 500.ms,
-                    //                   begin: 0.3,
-                    //                 )
-                    //             : (result != "")
-                    //                 ? Row(
-                    //                     mainAxisAlignment:
-                    //                         MainAxisAlignment.center,
-                    //                     children: [
-                    //                       Icon(
-                    //                         Remix.check_double_fill,
-                    //                         color: Colors.green,
-                    //                       ),
-                    //                       Gap(10),
-                    //                       Text(
-                    //                         'Analysing & predicting...',
-                    //                         style: TextStyle(
-                    //                             fontSize: 13.0,
-                    //                             fontFamily: 'geb'),
-                    //                       ),
-                    //                     ],
-                    //                   )
-                    //                     .animate(delay: 200.ms)
-                    //                     .fadeIn(duration: 500.ms)
-                    //                     .slideY(
-                    //                       duration: 500.ms,
-                    //                       begin: 0.3,
-                    //                     )
-                    //                 : Text(""),
-                    //         Gap(10),
-                    //         (isUploading)
-                    //             ? (progress != null)
-                    //                 ? Column(
-                    //                     children: [
-                    //                       Gap(5),
-                    //                       Container(
-                    //                         width: MediaQuery.of(context)
-                    //                                 .size
-                    //                                 .width *
-                    //                             0.60,
-                    //                         child: LinearProgressIndicator(
-                    //                           value: progress,
-                    //                           minHeight: 2.0,
-                    //                           color: Colors.red,
-                    //                         ),
-                    //                       ),
-                    //                       Gap(5),
-                    //                       Text(
-                    //                         "Sending results to database...($progress%)",
-                    //                         style: TextStyle(
-                    //                             fontSize: 13.0,
-                    //                             fontFamily: 'geb'),
-                    //                       ),
-                    //                       Gap(10)
-                    //                     ],
-                    //                   )
-                    //                     .animate(delay: 200.ms)
-                    //                     .fadeIn(duration: 500.ms)
-                    //                     .slideY(
-                    //                       duration: 500.ms,
-                    //                       begin: 0.3,
-                    //                     )
-                    //                 : Text('')
-                    //             : Text(''),
-                    //       ],
-                    //     ),
-                    //   )
-                    // // if (isClickPredict)
-                    //   SizedBox(
-                    //     height: 20,
-                    //   ),
-                    // (resState == 200)
-                    //     ? Image.memory(
-                    //         Base64Decoder().convert(base64Image),
-                    //         height: 150,
-                    //       )
-                    //     : Text(''),
-                    // SizedBox(
-                    //   height: 20,
-                    // ),
-                    // (resState == 200)
-                    //     ? Text(
-                    //         result,
-                    //         style: TextStyle(
-                    //           fontFamily: 'geb',
-                    //           fontSize: 20,
-                    //         ),
-                    //       )
-                    //     : Text(''),
-                    // (resState == 404)
-                    //     ? Text(
-                    //         result,
-                    //         style: TextStyle(
-                    //           fontFamily: 'geb',
-                    //           fontSize: 20,
-                    //         ),
-                    //       )
-                    //     : Text(''),
                   ],
                 ),
               ),
@@ -779,7 +595,3 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
     );
   }
 }
-
-/*
-
-*/

@@ -58,3 +58,122 @@ The treatments your child can benefit from most depends on their situation and n
 
 <p>Kids with autism spectrum disorder tend to have thinner bones than kids without it, so bone-building foods are important. You might want to work with a nutritionist or registered dietitian to develop a healthy eating plan.</p>
 ''';
+
+String centers = """
+<div style="border: 1px solid gray; padding: 5px; border-radius: 5px; margin-bottom: 5px;">
+  <div style="font-size: 20px; font-weight: bold;">Advanced School for Special Children (ASSC)</div>
+   <div style="font-size: 18px;">
+  <b>Address:</b> 14/22 Babor Road, Mohammadpur Dhaka 1207<br>
+  <b>Mobile:</b> +8801819-199795, 01735501995<br>
+  Email: assc.bangladesh@gmail.com
+  </div>
+  </div>
+
+  <div style="border: 1px solid gray; padding: 5px; border-radius: 5px; margin-bottom: 5px;">
+  <div style="font-size: 20px; font-weight: bold;">ALC Advanced Learning and Special School</div>
+   <div style="font-size: 18px;">
+  <b>Address:</b> Mohammadpur, Dhaka, Bangladesh<br>
+  <b>Mobile:</b> +8801980-672543<br>
+  <>Email: tania14802022@gmail.com
+  </div>
+  </div>
+
+  <div style="border: 1px solid gray; padding: 5px; border-radius: 5px; margin-bottom: 5px;">
+  <div style="font-size: 20px; font-weight: bold;">Amar Joti Special School</div>
+  <div style="font-size: 18px;">
+    <b>Address:</b> 55/1 Solmaid, Road 25, Ward 3, Block A, PS: Vatara, Gulshan, Dhaka, Bangladesh.<br>
+    <b>Mobile:</b> +8801816158787
+  </div>
+</div>
+<div style="border: 1px solid gray; padding: 5px; border-radius: 5px; margin-bottom: 5px;">
+  <div style="font-size: 20px; font-weight: bold;">Angels Care Foundation (ACF)</div>
+  <div style="font-size: 18px;">
+    <b>Address:</b> House#16/5, Block-C, Tajmahal Road, Mohammadpur, Dhaka-1207, Bangladesh.<br>
+    <b>Mobile:</b> +8801713-365302
+  </div>
+</div>
+<div style="border: 1px solid gray; padding: 5px; border-radius: 5px; margin-bottom: 5px;">
+  <div style="font-size: 20px; font-weight: bold;">Angel Foundation for Children with Special Needs</div>
+  <div style="font-size: 18px;">
+    <b>Address:</b> 457, Ibrahimpur, Kafrul, Dhaka-1206, Bangladesh.<br>
+    <b>Mobile:</b> +8801717-237963
+  </div>
+</div>
+<div style="border: 1px solid gray; padding: 5px; border-radius: 5px; margin-bottom: 5px;">
+  <div style="font-size: 20px; font-weight: bold;">Angels of Heaven</div>
+  <div style="font-size: 18px;">
+    <b>Address:</b> House:86/1, Main Road, Uttar Adabar, Dhaka, Bangladesh<br>
+    <b>Mobile:</b> +8801868-179416<br>
+    <b>Email:</b> sohelahmed89@yahoo.com
+  </div>
+</div>
+<div style="border: 1px solid gray; padding: 5px; border-radius: 5px; margin-bottom: 5px;">
+  <div style="font-size: 20px; font-weight: bold;">Autism Bangladesh, Institute of Neuro Development & Research (INDR)</div>
+  <div style="font-size: 18px;">
+    <b>Address:</b> 52/1, Hasan Holdings, New Eskaton Road, Dhaka-1000, Bangladesh.<br>
+    <b>Mobile:</b> +8801931-405986
+  </div>
+</div>
+<div style="border: 1px solid gray; padding: 5px; border-radius: 5px; margin-bottom: 5px;">
+  <div style="font-size: 20px; font-weight: bold;">Autism Care & Advancement Center</div>
+  <div style="font-size: 18px;">
+    <b>Address:</b> House No:13, Road 03, P.C. Culture Housing Society, Mohammadpur, Dhaka-1207, Bangladesh.<br>
+    <b>Mobile:</b> +8801712-194950
+  </div>
+</div>
+<div style="border: 1px solid gray; padding: 5px; border-radius: 5px; margin-bottom: 5px;">
+  <div style="font-size: 20px; font-weight: bold;">Autism Child’s Care (AC Care)</div>
+  <div style="font-size: 18px;">
+    <b>Address:</b> 2/16, Nurjahan Road, Mohammadpur, Dhaka, Bangladesh.<br>
+    <b>Mobile:</b> +8801732-821813, +8801811858323
+  </div>
+</div>
+<div style="border: 1px solid gray; padding: 5px; border-radius: 5px; margin-bottom: 5px;">
+  <div style="font-size: 20px; font-weight: bold;">Autism & ADHD Care Centre</div>
+  <div style="font-size: 18px;">
+    <b>Address:</b> B44, 45 Zakir Hossain Road, Mohammadpur, Dhaka, Bangladesh.<br>
+    <b>Mobile:</b> +8801724506740, 01924385556<br>
+    <b>Email:</b> aacc.dhaka@gmail.com
+  </div>
+</div>
+<div style="border: 1px solid gray; padding: 5px; border-radius: 5px; margin-bottom: 5px;">
+  <div style="font-size: 20px; font-weight: bold;">Autism in Bangladesh</div>
+  <div style="font-size: 18px;">
+    <b>Address:</b> 2/3 Block A (3rd Floor), Lalmatia, Dhaka.<br>
+    <b>Mobile:</b> +8801777-377141<br>
+    <b>Email:</b> bangladeshautismfoundation@gmail.com
+  </div>
+</div>
+<div style="border: 1px solid gray; padding: 5px; border-radius: 5px; margin-bottom: 5px;">
+  <div style="font-size: 20px; font-weight: bold;">Autism Welfare Foundation (AWF)</div>
+  <div style="font-size: 18px;">
+    <b>Address:</b> Village- Moddher Char, P.O- Shamlapur, Keranigonj Model Thana, Dhaka- 1312, Bangladesh.<br>
+    <b>Mobile:</b> +8801552363575<br>
+    <b>Email:</b> adminawf2004@gmail.com
+  </div>
+</div>
+<div style="border: 1px solid gray; padding: 5px; border-radius: 5px; margin-bottom: 5px;">
+  <div style="font-size: 20px; font-weight: bold;">Autism Rehab Centre (Therapy Station)</div>
+  <div style="font-size: 18px;">
+    <b>Address:</b> 117, Shantinagar (opposite of White House Hotel and Rajarbag 1 no police line Gate), Dhaka, Bangladesh.<br>
+    <b>Mobile:</b> +8801854-784445, +8801817042418<br>
+    <b>Email:</b> sumonslt@gmail.com
+  </div>
+</div>
+<div style="border: 1px solid gray; padding: 5px; border-radius: 5px; margin-bottom: 5px;">
+  <div style="font-size: 20px; font-weight: bold;">Autistic Children’s Welfare Foundation (ACWF)</div>
+  <div style="font-size: 18px;">
+    <b>Address:</b> 192/8, Bonorupa Housing Project, Kaolar Sondertek, Khilkhet, Dhaka.<br>
+    <b>Phone:</b> +8801914403331/4<br>
+    <b>Email:</b> info@acwf-bd.org, acwfbddhaka@gmail.com
+  </div>
+</div>
+<div style="border: 1px solid gray; padding: 5px; border-radius: 5px; margin-bottom: 5px;">
+  <div style="font-size: 20px; font-weight: bold;">Beautiful Mind</div>
+  <div style="font-size: 18px;">
+    <b>Address:</b> Plot # 1145, Road # 6/A, Dolipara, Sector # 5, Uttara, Dhaka -1230.<br>
+    <b>Phone:</b> +88 02 891 7699<br>
+    <b>Email:</b> azizurch@agni.com
+  </div>
+</div>
+""";

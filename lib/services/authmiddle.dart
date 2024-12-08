@@ -1,7 +1,7 @@
 import 'package:asd/components/snackBars.dart';
 import 'package:asd/main.dart';
+import 'package:asd/screens/agreement/agreement.dart';
 import 'package:asd/screens/doctorState/doctorState.dart';
-import 'package:asd/screens/phoneAuth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +45,7 @@ class AuthCheck extends StatelessWidget {
 
                   if (userData["access"] == "waiting") {
                     return Scaffold(
-                      backgroundColor: Color.fromARGB(255, 240, 176, 27),
+                      backgroundColor: Color.fromARGB(255, 6, 7, 17),
                       body: Container(
                         padding: EdgeInsets.all(15),
                         width: MediaQuery.of(context).size.width,
@@ -59,8 +59,12 @@ class AuthCheck extends StatelessWidget {
                             ),
                             Gap(5),
                             Text(
-                              "AutiScope",
-                              style: TextStyle(fontFamily: 'geb', fontSize: 20),
+                              "AI Autism Detection",
+                              style: TextStyle(
+                                fontFamily: 'geb',
+                                fontSize: 20,
+                                color: Colors.white,
+                              ),
                             ),
                             // Gap(5),
                             Text(
@@ -68,60 +72,37 @@ class AuthCheck extends StatelessWidget {
                               style: TextStyle(
                                 fontFamily: 'gsb',
                                 fontSize: 13,
+                                color: Colors.white,
                               ),
                             ),
                             Gap(50),
+
                             Container(
-                              height: 60,
-                              width: 60,
+                              padding: EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100),
-                                  image: DecorationImage(
-                                    image:
-                                        AssetImage('assets/images/waiting.gif'),
-                                  )),
-                            ),
-                            Text(
-                              'Waiting for Admin Approval!',
-                              style: TextStyle(
-                                  fontFamily: 'geb',
-                                  fontSize: 20,
-                                  color: Colors.black),
-                            ),
-                            // Gap(5),
-                            RichText(
-                              softWrap: true,
-                              textAlign: TextAlign.start,
-                              text: TextSpan(
-                                text:
-                                    'You have successfully created an account. We\'ll reach you soon!',
-                                style: TextStyle(
-                                    color: Colors.black, fontFamily: 'gsb'),
-                                // children: [
-                                //   TextSpan(
-                                //     text: ' email_address@gmail.com.',
-                                //     style: TextStyle(
-                                //         color: Color.fromARGB(255, 17, 81, 165),
-                                //         fontFamily: 'gsb'),
-                                //   ),
-                                //   TextSpan(
-                                //     text: ' Mention this USER ID: ',
-                                //     style: TextStyle(
-                                //         color: Colors.black, fontFamily: 'gsb'),
-                                //   ),
-                                //   TextSpan(
-                                //     text: '${snapshot.data!.uid}',
-                                //     style: TextStyle(
-                                //         color: Color.fromARGB(255, 17, 81, 165),
-                                //         fontFamily: 'gsb'),
-                                //   ),
-                                //   TextSpan(
-                                //     text:
-                                //         ' and briefly explain why you need this app!',
-                                //     style: TextStyle(
-                                //         color: Colors.black, fontFamily: 'gsb'),
-                                //   ),
-                                // ],
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'Waiting for Admin Approval!',
+                                    style: TextStyle(
+                                      fontFamily: 'geb',
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Gap(5),
+                                  Text(
+                                    'You have successfully created an account. We\'ll reach you soon! If the delay persist please contact us by admin@gmail.com',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily: 'geb',
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
@@ -202,7 +183,7 @@ class AuthCheck extends StatelessWidget {
               },
             );
           }
-          return PhoneAuth();
+          return Agreement();
         },
       ),
     );

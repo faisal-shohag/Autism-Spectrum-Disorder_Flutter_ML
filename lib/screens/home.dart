@@ -1,14 +1,10 @@
 import 'package:asd/components/button.dart';
-import 'package:asd/components/iconMenuItem.dart';
 import 'package:asd/components/menutitle.dart';
 import 'package:asd/const/detailsData.dart';
 import 'package:asd/screens/blogDetails.dart';
-import 'package:asd/screens/doctorZone/assignedDoctor.dart';
-// import 'package:asd/screens/doctorZone/schedules.dart';
 import 'package:asd/screens/info.dart';
-import 'package:asd/screens/notifications.dart';
-import 'package:asd/screens/ourself.dart';
 import 'package:asd/screens/pdf_view.dart';
+import 'package:asd/screens/profile.dart';
 import 'package:asd/services/userinfo.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
 import 'package:remixicon/remixicon.dart';
-import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -26,48 +21,11 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  final String html = r"""
-<p>If your child has trouble falling asleep, sleeping through the night, waking
-during the night and waking too early, these tips may help.</p>
-
-<h2>How to establish a regular bedtime routine:</h2><ul>
-<li>Start a short and predictable routine 15 to 30 minutes before bedtime. Use the
-same order every night to help your child relax and get ready for sleep.</li>
-<li>Place calm, soothing activities at the end of the routine, like reading a book with
-dimmed lights.</li>
-<li>Avoid stimulating activities, such as watching movies, playing video games or other
-screen time activities as part of the routine. Try to avoid physical activities like running
-or jumping 30 minutes before bedtime.</li>
-<li>Consider creating visual supports, like a chart with pictures of your child’s bedtime
-routine, to support and communicate your expectations around bedtime.</li>
-</ul>
-
-<h2>How to create a comfortable and consistent sleep environment:</h2><ul>
-<li>Make sure your child’s sleeping space is not too hot or cold and keep the room
-quiet and dark. Consider adding white noise if needed throughout the night.</li>
-<li>Caregivers can add a night light if your child needs one, but leave the night light
-on all night.</li>
-<li>Consider adding heavy window coverings to block outside light.</li>
-<li>Use materials for bedding and sleep clothes that work for your child’s preferences.</li>
-</ul>
-
-<h2>How to teach your child to fall asleep alone:</h2><ul>
-<li>Caregivers should gradually fade out of the room. Try sitting on a chair by your
-child’s bed instead of lying in the bed. Gradually move the chair further away from
-the bed every few nights, with the ultimate goal to move the chair completely out
-of the room.</li>
-<li>Keep all interactions with your child brief and boring if you need to go back in the
-room. For example, you can say, “You are ok, go to sleep,” and leave again.</li>
-<li>Try to wait longer between each visit to the room.</li>
-<li>Consider using a bedtime pass, which your child can exchange for one visit from
-caregiver, a drink of water, or an extra hug or kiss.</li>
-<li>You can also use these same strategies if your child calls out in the night for you.</li>
-</ul>
-  """;
   final List<String> imgList = [
-    'assets/images/db1.jpg',
-    'assets/images/db2.jpg',
-    'assets/images/db3.jpg',
+    'https://proyash.edu.bd/proyash/storage/img/homeSections/service/mx9jLzYjDL4yovlLIAx0TFcfkHHOklaVfaCToGC3.jpg',
+    'https://proyash.edu.bd/proyash/storage/uploads/sAB70tQGwIPF6xuxqo2ZKqfrZ3SDtChkzNhSXJxd.jpg',
+    'https://proyash.edu.bd/proyash/storage/img/homeSections/service/tB6jqNOeiYMvKMVIvktaXRQLRAbYD1vJr49mrH2D.jpg'
+    // 'assets/images/db3.jpg',
   ];
 
   Map<String, dynamic> userData = {};
@@ -102,22 +60,12 @@ caregiver, a drink of water, or an extra hug or kiss.</li>
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Scale().animate().fadeIn(duration: 500.ms).slideY(
-          //       duration: 500.ms,
-          //       begin: 0.3,
-          //     ),
-          // SizedBox(
-          //   height: 25,
-          // ),
-          // MenuTtitle(
-          //   title: 'Blogs',
-          // ),
-
           (isEdit == false)
               ? Column(
                   children: [
                     Container(
-                      height: 40,
+                      height: 100,
+                      padding: EdgeInsets.only(top: 40, left: 15, right: 10),
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -137,101 +85,40 @@ caregiver, a drink of water, or an extra hug or kiss.</li>
                           ),
                         ],
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(5),
-                      padding: EdgeInsets.only(
-                        left: 3,
-                        top: 10,
-                        bottom: 4,
-                        right: 20,
-                      ),
-                      width: MediaQuery.of(context).size.width,
-                      // decoration: BoxDecoration(
-                      //   gradient: LinearGradient(
-                      //     colors: [
-                      //       Color.fromARGB(255, 159, 22, 194).withOpacity(0.8),
-                      //       Color.fromARGB(255, 55, 39, 201).withOpacity(0.9),
-                      //     ],
-                      //     begin: Alignment.bottomLeft,
-                      //     end: Alignment.centerRight,
-                      //   ),
-                      //   borderRadius: BorderRadius.circular(20),
-                      //   boxShadow: [
-                      //     BoxShadow(
-                      //       offset: Offset(10, 10),
-                      //       blurRadius: 20,
-                      //       color: Color.fromARGB(255, 131, 103, 231)
-                      //           .withOpacity(0.5),
-                      //     ),
-                      //   ],
-                      // ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                            child: FirebaseAuth
-                                        .instance.currentUser!.photoURL !=
-                                    null
-                                ? CircleAvatar(
-                                    radius: 30,
-                                    backgroundImage: NetworkImage(FirebaseAuth
-                                        .instance.currentUser!.photoURL
-                                        .toString()),
-                                  )
-                                : CircleAvatar(
-                                    radius: 30,
-                                    backgroundImage:
-                                        AssetImage('assets/boy.png'),
-                                  ),
+                          Text(
+                            "AI Autism Detection",
+                            style: TextStyle(
+                                fontFamily: 'geb',
+                                fontSize: 21,
+                                color: Colors.white),
                           ),
                           Gap(10),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Hi,",
-                                style: TextStyle(
-                                  fontFamily: 'geb',
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Text(
-                                '${userData["displayName"]}',
-                                style: TextStyle(
-                                  fontFamily: 'geb',
-                                  fontSize: 21,
-                                ),
-                              ),
-                            ],
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Profile()));
+                            },
+                            child: Container(
+                              child: FirebaseAuth
+                                          .instance.currentUser!.photoURL !=
+                                      null
+                                  ? CircleAvatar(
+                                      radius: 20,
+                                      backgroundImage: NetworkImage(FirebaseAuth
+                                          .instance.currentUser!.photoURL
+                                          .toString()),
+                                    )
+                                  : CircleAvatar(
+                                      radius: 20,
+                                      backgroundImage:
+                                          AssetImage('assets/boy.png'),
+                                    ),
+                            ),
                           ),
-                          // GestureDetector(
-                          //   onTap: () {
-                          //     Navigator.of(context).push(MaterialPageRoute(
-                          //         builder: (context) => Notifications()));
-                          //   },
-                          //   child: (ntf)
-                          //       ? RippleAnimation(
-                          //           color: Colors.white,
-                          //           repeat: true,
-                          //           minRadius: 30,
-                          //           child: CircleAvatar(
-                          //             child: Icon(
-                          //               Remix.notification_4_fill,
-                          //               size: 25,
-                          //               color: Colors.black,
-                          //             ),
-                          //           ),
-                          //         )
-                          //       : CircleAvatar(
-                          //           child: Icon(
-                          //             Remix.notification_4_fill,
-                          //             size: 25,
-                          //             color: Colors.black,
-                          //           ),
-                          //         ),
-                          // )
                         ],
                       ),
                     ),
@@ -303,17 +190,20 @@ caregiver, a drink of water, or an extra hug or kiss.</li>
                 .map(
                   (item) => Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                            image: AssetImage(
-                              item,
-                            ),
-                            fit: BoxFit.cover)),
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          item,
+                        ),
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
+                      ),
+                    ),
                   ),
                 )
                 .toList(),
             options: CarouselOptions(
-              height: 150,
+              height: 180,
               aspectRatio: 16 / 9,
               viewportFraction: 0.8,
               initialPage: 0,
@@ -474,74 +364,74 @@ caregiver, a drink of water, or an extra hug or kiss.</li>
             //   ],
             // ),
 
-            MenuTtitle(
-              title: 'Ourself',
-            ).animate(delay: 100.ms).fadeIn(duration: 500.ms).slideY(
-                  duration: 500.ms,
-                  begin: 0.3,
-                ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 20,
-              right: 20,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  child: IconMenuItem(
-                    imageURL: 'https://i.postimg.cc/xCQBKtws/2390191.png',
-                    title: 'Our Vision',
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            OurSelf(title: 'Our Vision', index: 0)));
-                  },
-                ),
-                GestureDetector(
-                  child: IconMenuItem(
-                    imageURL: 'https://i.postimg.cc/Qxg9mtK0/1055661.png',
-                    title: 'Publications',
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => pdfView(
-                            title: 'Publications',
-                            source:
-                                'https://firebasestorage.googleapis.com/v0/b/asd-ml.appspot.com/o/proof_copy.pdf?alt=media&token=58f12f07-1421-44b1-8648-ab0c4b086f40')));
-                  },
-                ),
-                GestureDetector(
-                  child: IconMenuItem(
-                    imageURL: 'https://i.postimg.cc/c13TR4rk/2059784.png',
-                    title: 'Data Policy',
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            OurSelf(title: 'Data Policy', index: 1)));
-                  },
-                ),
-                GestureDetector(
-                  child: IconMenuItem(
-                    imageURL: 'https://i.postimg.cc/66gLgy3K/3306613.png',
-                    title: 'About Us',
-                  ),
-                  onTap: () {
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (context) =>
-                    //         OurSelf(title: 'Our Vision', index: 0)));
-                  },
-                ),
-              ],
-            ),
-          ),
+            // MenuTtitle(
+            //   title: 'Ourself',
+            // ).animate(delay: 100.ms).fadeIn(duration: 500.ms).slideY(
+            //       duration: 500.ms,
+            //       begin: 0.3,
+            //     ),
+            // Padding(
+            //   padding: const EdgeInsets.only(
+            //     left: 20,
+            //     right: 20,
+            //   ),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       GestureDetector(
+            //         child: IconMenuItem(
+            //           imageURL: 'https://i.postimg.cc/xCQBKtws/2390191.png',
+            //           title: 'Our Vision',
+            //         ),
+            //         onTap: () {
+            //           Navigator.of(context).push(MaterialPageRoute(
+            //               builder: (context) =>
+            //                   OurSelf(title: 'Our Vision', index: 0)));
+            //         },
+            //       ),
+            //       GestureDetector(
+            //         child: IconMenuItem(
+            //           imageURL: 'https://i.postimg.cc/Qxg9mtK0/1055661.png',
+            //           title: 'Publications',
+            //         ),
+            //         onTap: () {
+            //           Navigator.of(context).push(MaterialPageRoute(
+            //               builder: (context) => pdfView(
+            //                   title: 'Publications',
+            //                   source:
+            //                       'https://firebasestorage.googleapis.com/v0/b/asd-ml.appspot.com/o/proof_copy.pdf?alt=media&token=58f12f07-1421-44b1-8648-ab0c4b086f40')));
+            //         },
+            //       ),
+            //       GestureDetector(
+            //         child: IconMenuItem(
+            //           imageURL: 'https://i.postimg.cc/c13TR4rk/2059784.png',
+            //           title: 'Data Policy',
+            //         ),
+            //         onTap: () {
+            //           Navigator.of(context).push(MaterialPageRoute(
+            //               builder: (context) =>
+            //                   OurSelf(title: 'Data Policy', index: 1)));
+            //         },
+            //       ),
+            //       GestureDetector(
+            //         child: IconMenuItem(
+            //           imageURL: 'https://i.postimg.cc/66gLgy3K/3306613.png',
+            //           title: 'About Us',
+            //         ),
+            //         onTap: () {
+            //           // Navigator.of(context).push(MaterialPageRoute(
+            //           //     builder: (context) =>
+            //           //         OurSelf(title: 'Our Vision', index: 0)));
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
 
-          Gap(10),
+            Gap(10),
 
           MenuTtitle(
-            title: 'Do you know?',
+            title: 'Autism at a glance',
           ).animate(delay: 100.ms).fadeIn(duration: 500.ms).slideY(
                 duration: 500.ms,
                 begin: 0.3,
@@ -570,7 +460,7 @@ caregiver, a drink of water, or an extra hug or kiss.</li>
                     );
                   },
                   child: LongMenuCard(
-                    title: 'What is autism?',
+                    title: 'About Autism',
                     img: 'assets/images/autism1.jpg',
                   ),
                 ),
@@ -580,7 +470,7 @@ caregiver, a drink of water, or an extra hug or kiss.</li>
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => BlogDetails(
-                          title: 'Sign of autism.',
+                          title: 'Symptoms of autism.',
                           img:
                               'https://1.bp.blogspot.com/-n7K3aT5MVms/UqNZ_xq3bpI/AAAAAAAAAFE/H5h3-RguKnc/s1600/Autism1.jpg',
                           pageData: soa,
@@ -593,7 +483,7 @@ caregiver, a drink of water, or an extra hug or kiss.</li>
                     );
                   },
                   child: LongMenuCard(
-                    title: 'Sign of autism?',
+                    title: 'Symptoms of autism?',
                     img: 'assets/images/autism2b.jpg',
                   ),
                 ),
@@ -602,7 +492,7 @@ caregiver, a drink of water, or an extra hug or kiss.</li>
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => BlogDetails(
-                          title: 'How autism is treated?',
+                          title: 'Autism Treatment',
                           img:
                               'https://st.depositphotos.com/1189140/1955/i/450/depositphotos_19550919-stock-photo-pediatrician-doctor-and-patient-small.jpg',
                           pageData: treat,
@@ -615,8 +505,30 @@ caregiver, a drink of water, or an extra hug or kiss.</li>
                     );
                   },
                   child: LongMenuCard(
-                    title: 'How autism is treated?',
+                    title: 'Autism Treatment',
                     img: 'assets/images/autism3b.jpg',
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => BlogDetails(
+                          title: 'Autism care centers in Bangladesh',
+                          img:
+                              'https://shine-light.org/wp-content/uploads/colorful-human-figures-holding-hands-laying-on-woo-345NRS2.jpg',
+                          pageData: centers,
+                          author: 'Smitha Bhandari',
+                          designation: 'MD',
+                          authorImg:
+                              'https://img.freepik.com/free-vector/hand-drawn-flat-design-autism-logo_23-2149372600.jpg',
+                        ),
+                      ),
+                    );
+                  },
+                  child: LongMenuCard(
+                    title: 'Autism Care Centers',
+                    img: 'assets/images/autism4.avif',
                   ),
                 ),
               ],
@@ -627,7 +539,7 @@ caregiver, a drink of water, or an extra hug or kiss.</li>
               ),
 
           MenuTtitle(
-            title: 'Guide to autism',
+            title: 'Autism Guideline',
           ).animate(delay: 300.ms).fadeIn(duration: 500.ms).slideY(
                 duration: 500.ms,
                 begin: 0.3,
@@ -893,7 +805,6 @@ class LongMenuCard extends StatelessWidget {
     );
   }
 }
-
 
 // class Scale extends StatelessWidget {
 //   const Scale({super.key});

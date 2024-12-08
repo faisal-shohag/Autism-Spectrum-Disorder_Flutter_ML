@@ -1,5 +1,4 @@
 import "package:asd/const/functions.dart";
-import "package:asd/screens/doctorZone/assignedDoctor.dart";
 import "package:asd/screens/image_diag.dart";
 // import "package:asd/screens/menu/doctor.dart";
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -142,8 +141,10 @@ class _ASDTESTState extends State<ASDTEST> {
                           bottomLeft: Radius.circular(10),
                         ),
                         image: DecorationImage(
-                          image: AssetImage('assets/images/d1.jpg'),
+                          image: NetworkImage(
+                              'https://img.freepik.com/free-vector/puzzle-solving-question-mark-background-guidance-support_1017-43014.jpg'),
                           fit: BoxFit.cover,
+                          alignment: Alignment.bottomRight,
                         ),
                       ),
                     ),
@@ -272,7 +273,7 @@ class _ASDTESTState extends State<ASDTEST> {
                 child: Row(
                   children: [
                     Container(
-                      width: 100,
+                      width: 110,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(30),
@@ -281,8 +282,10 @@ class _ASDTESTState extends State<ASDTEST> {
                           bottomLeft: Radius.circular(10),
                         ),
                         image: DecorationImage(
-                          image: AssetImage('assets/images/d2.jpeg'),
+                          image: NetworkImage(
+                              'https://media.licdn.com/dms/image/D5612AQE7s66UIkVuJg/article-cover_image-shrink_720_1280/0/1692163288530?e=2147483647&v=beta&t=LMfClWdJ5p62mGdaJAX6aEhfxAMiG6Bj5n53ZP12dRk'),
                           fit: BoxFit.cover,
+                          alignment: Alignment.topRight,
                         ),
                       ),
                     ),
@@ -293,7 +296,7 @@ class _ASDTESTState extends State<ASDTEST> {
                         children: [
                           Gap(20),
                           Text(
-                            'Test With Machine Learning Model',
+                            'AI Test',
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontFamily: 'geb',
@@ -397,7 +400,7 @@ class _ASDTESTState extends State<ASDTEST> {
                   // }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFEC1EE8),
+                  backgroundColor: Color.fromARGB(255, 236, 64, 30),
                   textStyle: TextStyle(
                     color: Colors.white,
                   ),

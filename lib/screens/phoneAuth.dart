@@ -332,43 +332,6 @@ class _PhoneAuthState extends State<PhoneAuth> {
                       Gap(20),
                       isClickLogin ? CircularProgressIndicator() : Text(''),
                       isClickLogin ? Gap(20) : Text(''),
-                      DropDownTextField(
-                        textFieldDecoration: InputDecoration(
-                          hintText: 'Login As',
-                          contentPadding: EdgeInsets.only(left: 20),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide:
-                                BorderSide(color: Colors.red.withOpacity(0.3)),
-                            gapPadding: 0,
-                          ),
-                        ),
-                        controller: drop_controller,
-                        listSpace: 10,
-                        listPadding: ListPadding(top: 20),
-                        dropDownList: [
-                          DropDownValueModel(
-                              name: 'Login As Parent', value: 'parent'),
-                          DropDownValueModel(
-                              name: 'Login As Doctor', value: 'doctor'),
-                        ],
-                        onChanged: (val) {
-                          if (val.runtimeType != String) {
-                            setState(() {
-                              joinAs = val.value;
-                            });
-                          } else {
-                            setState(() {
-                              joinAs = "";
-                            });
-                          }
-                        },
-                      ),
-                      Gap(10),
                       InputTextField(
                         readOnly: false,
                         obscureText: false,
@@ -379,9 +342,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
                       Gap(15),
                       GestureDetector(
                         onTap: () {
-                          if (joinAs == "") {
-                            WarningSnackBar(context, "Please select Login as!");
-                          } else if (phoneVerifyRegx.hasMatch(phone.text)) {
+                          if (phoneVerifyRegx.hasMatch(phone.text)) {
                             if (!mounted) {
                               return;
                             }

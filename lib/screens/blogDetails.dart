@@ -46,29 +46,29 @@ class BlogDetails extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        backgroundImage: NetworkImage(authorImg),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            author,
-                            style: TextStyle(fontFamily: 'geb', fontSize: 16),
-                          ),
-                          Text(
-                            designation,
-                            style: TextStyle(fontFamily: 'gsb', fontSize: 10),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     CircleAvatar(
+                  //       backgroundImage: NetworkImage(authorImg),
+                  //     ),
+                  //     SizedBox(
+                  //       width: 10,
+                  //     ),
+                  //     Column(
+                  //       crossAxisAlignment: CrossAxisAlignment.start,
+                  //       children: [
+                  //         Text(
+                  //           author,
+                  //           style: TextStyle(fontFamily: 'geb', fontSize: 16),
+                  //         ),
+                  //         Text(
+                  //           designation,
+                  //           style: TextStyle(fontFamily: 'gsb', fontSize: 10),
+                  //         ),
+                  //       ],
+                  //     )
+                  //   ],
+                  // ),
                   // Column(
                   //   children: [
                   //     Text(

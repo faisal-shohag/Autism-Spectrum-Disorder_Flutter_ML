@@ -1,13 +1,12 @@
 import 'package:asd/components/snackBars.dart';
 import 'package:asd/models/myData.dart';
+import 'package:asd/screens/about.dart';
 import 'package:asd/screens/asd_test.dart';
 import 'package:asd/screens/doctorZone/assignedDoctor.dart';
 import 'package:asd/screens/doctorZone/reports.dart';
 import 'package:asd/screens/home.dart';
 import 'package:asd/screens/menu/doctor.dart';
 import 'package:asd/screens/notifications.dart';
-import 'package:asd/screens/profile.dart';
-import 'package:asd/screens/reports.dart';
 import 'package:asd/services/authmiddle.dart';
 import 'package:asd/services/notification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -89,10 +88,11 @@ class _MyHomePageState extends State<MyHomePage> {
     HomeTab(),
     ASDTEST(),
     // Reports(),
-    Profile(),
+    // Profile(),
+    About()
   ];
 
-  final List<String> titles = ["", "Test", "Profile"];
+  final List<String> titles = ["", "Test", "About us"];
 
   var currentIndex = 0;
 
@@ -118,10 +118,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     begin: Alignment.bottomLeft,
                     end: Alignment.centerRight,
                   ),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(30),
-                    bottomRight: Radius.circular(30),
-                  ),
+                  // borderRadius: BorderRadius.only(
+                  //   bottomLeft: Radius.circular(30),
+                  //   bottomRight: Radius.circular(30),
+                  // ),
                   boxShadow: [
                     BoxShadow(
                       offset: Offset(10, 10),
@@ -138,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       titles[currentIndex],
                       style: TextStyle(
                         fontFamily: 'geb',
-                        fontSize: 35,
+                        fontSize: 30,
                         color: Colors.white,
                       ),
                     ),
@@ -192,9 +192,9 @@ class _MyHomePageState extends State<MyHomePage> {
             //   activeIcon: Icon(Remix.pie_chart_2_fill),
             // ),
             BottomNavigationBarItem(
-              icon: Icon(Remix.user_6_line),
-              label: 'Profile',
-              activeIcon: Icon(Remix.user_6_fill),
+              icon: Icon(Remix.information_line),
+              label: 'About us',
+              activeIcon: Icon(Remix.information_fill),
             ),
           ],
         ),
