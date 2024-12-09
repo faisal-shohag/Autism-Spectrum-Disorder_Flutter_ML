@@ -312,7 +312,7 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                       Gap(10),
                       //based on non autistic
                       Text(
-                        'Risk: ${(prob[1] * 100).toInt() >= 70 ? 'Safe' : (prob[1] * 100).toInt() > 71 && (prob[1] * 100).toInt() <= 90 ? 'Moderate' : 'High'}',
+                        'Risk: ${(prob[0] * 100).toInt() >= 80 ? 'High' : (prob[1] * 100).toInt() >= 50 && (prob[1] * 100).toInt() < 80 ? 'Moderate' : 'Low'}',
                         style: TextStyle(
                           fontFamily: 'geb',
                           fontSize: 19,
