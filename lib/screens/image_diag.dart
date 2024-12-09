@@ -464,7 +464,7 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                               }).show();
                         },
                         child: FlexButton(
-                          width: 200,
+                          width: 230,
                           prefixIcon: Remix.refresh_line,
                           buttonColor: Colors.black,
                           buttonText: "Reset & Test Again",
@@ -597,7 +597,7 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                             },
                             child: (PickedImage == null)
                                 ? Text(
-                                    'Please select an Image from folder or capture from camera. Image should have clear and full face view.',
+                                    'Please select an image from the gallery or capture one using the camera.',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontFamily: 'geb',
