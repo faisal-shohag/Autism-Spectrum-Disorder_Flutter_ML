@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 List<dynamic>? usersAns;
 List<dynamic>? userScores;
@@ -266,6 +267,8 @@ class _QATestState extends State<QATest> {
                           break;
                         }
                       }
+                      // print(score);
+
                       return Column(
                         children: [
                           Text(
@@ -316,12 +319,8 @@ class _QATestState extends State<QATest> {
                               color: Colors.red.shade100,
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Text(
-                              '${threshold[thresIndex]["details"]}',
-                              style: TextStyle(
-                                fontFamily: 'gsb',
-                                fontSize: 16,
-                              ),
+                            child: Html(
+                              data: '${threshold[thresIndex]["details"]}',
                             ),
                           ),
                         ],

@@ -8,12 +8,12 @@ import 'package:asd/screens/info.dart';
 import 'package:asd/screens/pdf_view.dart';
 import 'package:asd/screens/profile.dart';
 import 'package:asd/services/userinfo.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:gap/gap.dart';
 import 'package:remixicon/remixicon.dart';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
