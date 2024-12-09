@@ -55,7 +55,7 @@ class _AboutState extends State<About> {
                 ),
                 Html(
                     data:
-                        '<b>Website:</b> https://brur.ac.bd/<br><b>Email:</b> cse.zasim@gmail.com')
+                        '<b>Website:</b> https://brur.ac.bd/<br><b>Email:</b> zasim@brur.ac.bd')
               ],
             ),
           ),
