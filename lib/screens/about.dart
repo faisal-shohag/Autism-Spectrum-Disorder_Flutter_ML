@@ -1,5 +1,6 @@
 import 'package:asd/screens/pdf_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:gap/gap.dart';
 
 class About extends StatefulWidget {
@@ -52,6 +53,9 @@ class _AboutState extends State<About> {
                   style: TextStyle(fontSize: 18),
                   textAlign: TextAlign.center,
                 ),
+                Html(
+                    data:
+                        '<b>Website:</b> https://brur.ac.bd/<br><b>Email:</b> cse.zasim@gmail.com')
               ],
             ),
           ),
