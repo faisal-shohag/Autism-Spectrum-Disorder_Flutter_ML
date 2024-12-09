@@ -458,7 +458,7 @@ class _HomeTabState extends State<HomeTab> {
                         builder: (context) => BlogDetails(
                           title: 'What is autism?',
                           img:
-                              'https://carmenbpingree.com/wp-content/uploads/2020/07/Screen-Shot-2020-07-13-at-4.30.12-PM.png',
+                              'https://i.postimg.cc/MKDfh3QP/Whats-App-Image-2024-12-08-at-14-08-35-7ca8e10c.jpg',
                           pageData: autism,
                           author: 'AutismSpeaks',
                           designation: 'Organization',

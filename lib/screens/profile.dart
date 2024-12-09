@@ -292,7 +292,7 @@ class _ProfileState extends State<Profile> {
                               builder: (context) => const InfoEdit()));
                         },
                         child: FlexButton(
-                          width: 130,
+                          width: 140,
                           prefixIcon: Remix.edit_box_line,
                           buttonText: 'Edit Profile',
                           buttonColor: Colors.green,
@@ -304,7 +304,7 @@ class _ProfileState extends State<Profile> {
                           pickFromFile();
                         },
                         child: FlexButton(
-                          width: 130,
+                          width: 140,
                           prefixIcon: Remix.camera_3_fill,
                           buttonText: 'Photo',
                           buttonColor: Colors.pink,

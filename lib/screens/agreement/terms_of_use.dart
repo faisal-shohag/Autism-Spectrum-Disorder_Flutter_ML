@@ -74,7 +74,7 @@ class Terms extends StatelessWidget {
             _buildSectionTitle('Contact Us'),
             _buildSectionContent(
                 'If you have any questions or suggestions about our Terms of Use, do not hesitate to contact us at:'),
-            _buildBulletPoint('Email: support@ai-autism-detection.com'),
+            _buildBulletPoint('Email: cse.zasim@gmail.com'),
             const SizedBox(height: 50),
             Center(
                 child: GestureDetector(
