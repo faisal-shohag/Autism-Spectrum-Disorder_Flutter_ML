@@ -610,7 +610,7 @@ class _ImageDiagnosisState extends State<ImageDiagnosis> {
                               ),
                               Gap(10),
                               Text(
-                                'Please do not close the app or this screen!',
+                                'Please do not close!!!',
                                 style: TextStyle(
                                     color: Colors.red, fontFamily: 'geb'),
                               )
